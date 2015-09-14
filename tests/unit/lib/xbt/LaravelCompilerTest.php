@@ -93,7 +93,6 @@ class LaravelCompilerTest extends \PHPUnit_Framework_TestCase
         $mockFS = m::mock(Filesystem::class)->makePartial();
         $mockFS->shouldReceive('get')->once()->andReturn('<xbt:template>empty</xbt:template>');
         $mockFS->shouldReceive('put')->twice();
-        $mockFS->shouldReceive('exists')->twice()->andReturn(true);
 
         $compiler = new LaravelCompiler($mockFS, '/cache/path', '/class/path', []);
 
