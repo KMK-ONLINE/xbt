@@ -77,26 +77,48 @@ class LaravelCompilerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($compiler->isExpired($path));
     }
 
-    public function test_compileInvocation_instantiates_the_xhp_component_with_local_vars_and_renders_it()
-    {
-        $mockFS = m::mock(Filesystem::class)->makePartial();
-        $compiler = new LaravelCompiler($mockFS, '/cache/path', '/class/path', []);
-        $className = 'ClassName';
-        $expected = "echo (new ClassName(get_defined_vars()))->render();";
-        $this->assertEquals($expected, $compiler->compileInvocation($className));
-    }
-
     public function test_compile_calls_files_put_twice()
     {
         $path = 'tipu-tipu.xbt.php';
 
         $mockFS = m::mock(Filesystem::class)->makePartial();
+
+        $compiler = m::mock(LaravelCompiler::class, [$mockFS, '/cache/path', '/class/path', []])->makePartial();
+        $compiler->shouldReceive('compileDefinition')->once();
+        $compiler->shouldReceive('compileInvocation')->once();
+
+        $compiler->compile($path);
+    }
+
+    public function test_compileDefinition_should_recompile_its_parent()
+    {
+        $path = 'tipu-tipu.xbt.php';
+
+        $compiledClassPath = '/class/path/' . '__xbt_' . md5($path) . '.php';
+
+        $mockFS = m::mock(Filesystem::class)->makePartial();
         $mockFS->shouldReceive('get')->once()->andReturn('<xbt:template>empty</xbt:template>');
-        $mockFS->shouldReceive('put')->twice();
+
+        $mockFS->shouldReceive('put')->with(m::any(), '/class/')->once();
 
         $compiler = new LaravelCompiler($mockFS, '/cache/path', '/class/path', []);
 
-        $compiler->compile($path);
-     }
+        $compiler->compileDefinition($path);
+    }
+
+    public function test_compileInvocation_should_recompile_its_parent()
+    {
+        $path = 'tipu-tipu.xbt.php';
+
+        $compiledClassPath = '/class/path/' . '__xbt_' . md5($path) . '.php';
+
+        $mockFS = m::mock(Filesystem::class)->makePartial();
+
+        $mockFS->shouldReceive('put')->with(m::any(), '/echo/')->once();
+
+        $compiler = new LaravelCompiler($mockFS, '/cache/path', '/class/path', []);
+
+        $compiler->compileInvocation($path);
+    }
 }
 

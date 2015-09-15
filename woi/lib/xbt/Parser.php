@@ -65,7 +65,7 @@ class Parser
         $label = $stream->peek(1);
 
         if (!$label->match(T_XHP_LABEL)) {
-            throw new SyntaxError('Tag does not have a valid name: ' , $label->value);
+          throw new SyntaxError(sprintf('Tag does not have a valid name: %s at Line: %d, Near: %s', $label->value, $stream->row, $stream->text));
         }
 
         switch ($label->value) {
@@ -108,7 +108,7 @@ class Parser
             } elseif ($stream->match(Token::T_XHP_BRACE_OPEN)) {
                 $nodes[] = $this->parseDelimitedExpression();
             } else {
-                throw new SyntaxError('Inconsistent parser state: child component must either be a tag, a text, or an expression');
+              throw new SyntaxError(sprintf('Inconsistent parser state: child component must either be a tag, a text, or an expression at Found: %s at Line: %d, Near: %s', token_name($stream->getCurrent()->type), $stream->row, $stream->text));
             }
         }
 

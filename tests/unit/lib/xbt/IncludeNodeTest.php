@@ -84,23 +84,6 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase
         $includeNode = new IncludeNode($tagAttributes);
     }
 
-    /**
-     * @expectedException Lib\xbt\SyntaxError
-     */
-    public function test_params_attribute_is_not_a_literal_array_inside_a_delimited_expression()
-    {
-        $template = new StringNode('"foobar"');
-
-        $params = new DelimitedExpressionNode('{$wtf}');
-
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
-            ':template' => $template,
-            ':params'   => $params,
-        });
-
-        $includeNode = new IncludeNode($tagAttributes);
-    }
-
     public function test_params_attribute_can_span_multiple_lines()
     {
         $template = new StringNode('"foobar"');

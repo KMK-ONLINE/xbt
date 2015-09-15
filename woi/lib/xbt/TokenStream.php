@@ -10,6 +10,9 @@ class TokenStream
 
     protected int $position;
 
+    public int $row;
+    public string $text = "";
+
     public function __construct(array<Token> $tokens)
     {
         $this->tokens = $tokens;
@@ -20,6 +23,8 @@ class TokenStream
         }
         $this->position = 0;
         $this->current = $this->tokens[$this->position];
+        $this->row = $this->current->lineno;
+        $this->text .= $this->current->value;
     }
 
     public function getTokens() : array
@@ -54,7 +59,12 @@ class TokenStream
         if (isset($tokens[$position])) {
             $this->current = $tokens[$position];
             $this->position = $position;
+            $this->text = substr($this->text . $this->current->value, 100);
+            if ($this->match(T_WHITESPACE)) {
+              $this->row = $current->lineno;
+            }
         }
+
         return $current;
     }
 

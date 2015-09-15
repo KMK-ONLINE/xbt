@@ -22,7 +22,7 @@ class Token
         $this->lineno = $lineno;
     }
 
-    public function match(int $type, ?string $value = null) : bool
+    public function match(int $type, ?mixed $value = null) : bool
     {
         if ($value !== null) {
             if (is_array($value)) {

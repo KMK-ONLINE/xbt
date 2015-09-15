@@ -19,9 +19,7 @@ class IncludeNode extends TagNode {
 
             $params = $attributes->offsetGet(':params');
 
-            if (!$params instanceof DelimitedExpressionNode ||
-                !preg_match('/^\{\s*\[(?:.+)\]\s*\}$/s', $params->render())
-            ) {
+            if (!$params instanceof DelimitedExpressionNode) {
                 throw new SyntaxError('Params attribute for include tag must be a delimited array expression');
             }
 
