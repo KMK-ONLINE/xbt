@@ -638,5 +638,34 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($tagNode instanceof TagNode);
     }
+
+    public function test_parseTag_kagak_mencret_kalo_ada_kurung_kurawal_di_dalem_kurung_kurawal()
+    {
+        $tokens = [
+            new Token(Token::T_XHP_BRACE_OPEN, '{'),
+            new Token(T_XHP_TAG_LT, '<'),
+            new Token(T_XHP_LABEL, ':foobar'),
+            new Token(T_WHITESPACE, ' '),
+            new Token(T_XHP_LABEL, ':pukimak'),
+            new Token(Token::T_XHP_ATTRIBUTE_EQUAL, '='),
+            new Token(Token::T_XHP_BRACE_OPEN, '{'),
+            new Token(T_VARIABLE, '$blockname'),
+            new Token(Token::T_XHP_BRACE_CLOSE, '}'),
+            new Token(T_WHITESPACE, ' '),
+            new Token(Token::T_XHP_TAG_SLASH, '/'),
+            new Token(T_XHP_TAG_GT, '>'),
+            new Token(Token::T_XHP_BRACE_CLOSE, '}'),
+            new Token(Token::T_XHP_EOF),
+        ];
+
+        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
+
+        $parser = new Parser($tokenStream);
+
+        $expr = $parser->parseDelimitedExpression();
+
+        $this->assertEquals('{<foobar pukimak={$blockname} />}', $expr->render());
+    }
 }
 

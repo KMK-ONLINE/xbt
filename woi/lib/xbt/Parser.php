@@ -168,6 +168,10 @@ class Parser
 
         while (!$stream->isEOF()) {
 
+            if ($stream->match(Token::T_XHP_BRACE_OPEN)) {
+                $depth += 1;
+            }
+
             if ($stream->match(Token::T_XHP_BRACE_CLOSE)) {
                 $depth -= 1;
             }
@@ -188,7 +192,12 @@ class Parser
         $expression = '';
 
         foreach ($tokens as $token) {
-            $expression .= $token->value;
+            // support sementara untuk dapat mendukung XHP non XBT
+            if ($token->type === T_XHP_LABEL) {
+                $expression .= substr($token->value, 1);
+            } else {
+                $expression .= $token->value;
+            }
         }
 
         return new DelimitedExpressionNode($expression);
