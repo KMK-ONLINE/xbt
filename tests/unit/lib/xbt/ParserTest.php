@@ -178,7 +178,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser->parseText();
     }
 
-    public function test_parseIncludeTag_returns_an_includeNode_and_render_properly_aaaaaaa()
+    public function test_parseIncludeTag_returns_an_includeNode_and_render_properly()
     {
         $tokens = [
             new Token(T_XHP_TAG_LT, '<'),
@@ -199,7 +199,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $includeNode = $parser->parseIncludeTag();
 
         $this->assertTrue($includeNode instanceof IncludeNode);
-        $this->assertEquals('<raw-string>{$__env->make(\'sidebar\', [])->render()}</raw-string>', $includeNode->render());
+        $this->assertEquals('<raw-string>{(true) ? $__env->make(\'sidebar\', [])->render() : \'\'}</raw-string>', $includeNode->render());
     }
 
     public function test_parseTag_a_specific_tag_returns_TagNode_object_and_renders_properly()

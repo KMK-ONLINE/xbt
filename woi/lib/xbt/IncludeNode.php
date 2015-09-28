@@ -20,10 +20,20 @@ class IncludeNode extends TagNode {
             $params = $attributes->offsetGet(':params');
 
             if (!$params instanceof DelimitedExpressionNode) {
-                throw new SyntaxError('Params attribute for include tag must be a delimited array expression');
+                throw new SyntaxError('Params attribute for include tag must be a delimited expression');
             }
 
         }
+
+        if ($attributes->offsetExists(':when')) {
+
+            $when = $attributes->offsetGet(':when');
+
+            if (!$when instanceof DelimitedExpressionNode) {
+                throw new SyntaxError('When attribute for include tag must be a delimited expression');
+            }
+        }
+
 
         parent::__construct('xbt:include', $attributes, new NodeList(Vector<Node> {}));
     }
@@ -34,8 +44,10 @@ class IncludeNode extends TagNode {
 
         $template = $attributes->offsetGet(':template');
 
+        $when = $attributes->offsetExists(':when') ? $attributes->offsetGet(':when') : 'true';
+
         $params = $attributes->offsetExists(':params') ? $attributes->offsetGet(':params') : '[]' ;
 
-        return '<raw-string>{$__env->make(\'' . $template . '\', ' . $params . ')->render()}</raw-string>';
+        return '<raw-string>{(' . $when . ') ? $__env->make(\'' . $template . '\', ' . $params . ')->render() : \'\'}</raw-string>';
     }
 }

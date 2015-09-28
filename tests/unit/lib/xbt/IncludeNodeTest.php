@@ -4,8 +4,7 @@ namespace Lib\xbt;
 
 use Mockery as m;
 
-class IncludeNodeTest extends \PHPUnit_Framework_TestCase
-{
+class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     public function tearDown()
     {
         m::close();
@@ -43,7 +42,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = '<raw-string>{$__env->make(\'foobar\', [])->render()}</raw-string>';
+        $expected = '<raw-string>{(true) ? $__env->make(\'foobar\', [])->render() : \'\'}</raw-string>';
 
         $this->assertEquals($expected, $includeNode->render());
     }
@@ -62,7 +61,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = '<raw-string>{$__env->make(\'foobar\', [\'foo\' => \'bar\'])->render()}</raw-string>';
+        $expected = '<raw-string>{(true) ? $__env->make(\'foobar\', [\'foo\' => \'bar\'])->render() : \'\'}</raw-string>';
 
         $this->assertEquals($expected, $includeNode->render());
     }
@@ -97,10 +96,48 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = "<raw-string>{\$__env->make('foobar', ['foo' => 'bar',\n'baz' => 'zulu'])->render()}</raw-string>";
+        $expected = "<raw-string>{(true) ? \$__env->make('foobar', ['foo' => 'bar',\n'baz' => 'zulu'])->render() : ''}</raw-string>";
 
         $this->assertEquals($expected, $includeNode->render());
 
     }
+
+    /**
+     * @expectedException Lib\xbt\SyntaxError
+     */
+    public function test_when_attribute_is_not_a_delimited_expression()
+    {
+        $template = new StringNode('"foobar"');
+
+        $when = new StringNode('"quoted string tee hee"');
+
+        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+            ':template' => $template,
+            ':when'   => $when,
+        });
+
+        $includeNode = new IncludeNode($tagAttributes);
+    }
+
+    public function test_when_attribute_can_span_multiple_lines()
+    {
+        $template = new StringNode('"foobar"');
+
+        $when = new DelimitedExpressionNode("{true}");
+
+        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+            ':template' => $template,
+            ':when'   => $when,
+        });
+
+        $includeNode = new IncludeNode($tagAttributes);
+
+        $expected = "<raw-string>{(true) ? \$__env->make('foobar', [])->render() : ''}</raw-string>";
+
+        $this->assertEquals($expected, $includeNode->render());
+
+    }
+
+
 }
 
