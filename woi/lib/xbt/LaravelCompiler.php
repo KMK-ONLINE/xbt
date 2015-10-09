@@ -30,19 +30,14 @@ class LaravelCompiler implements CompilerInterface
         return $this->cachePath . '/' . md5($path);
     }
 
-    public function getCompiledClassPath($path)
+    public function getCompiledTemplateDefinitionPath($path)
     {
-        return $this->classPath . '/' . $this->getClassName($path) . '.php';
-    }
-
-    public function getClassName($path)
-    {
-        return '__xbt_' . md5($path);
+        return $this->classPath . '/' . md5($path) . '.php';
     }
 
     public function isExpired($path)
     {
-        $compiledClass = $this->getCompiledClassPath($path);
+        $compiledClass = $this->getCompiledTemplateDefinitionPath($path);
 
         $compiled = $this->getCompiledPath($path);
 
@@ -55,6 +50,14 @@ class LaravelCompiler implements CompilerInterface
         return $lastModified >= $this->files->lastModified($compiled) || $lastModified >= $this->files->lastModified($compiledClass);
     }
 
+    public function compileExtends($view)
+    {
+        $path = $this->finder->find($view);
+        if ($this->isExpired($path)) {
+            $this->compile($path);
+        }
+        return include $this->getcompiledTemplateDefinitionPath($path);
+    }
 
     protected function makeTemplate($path)
     {
@@ -66,70 +69,39 @@ class LaravelCompiler implements CompilerInterface
         return $parser->parse();
     }
 
-    protected function compileRequireOnce($parent, $path)
-    {
-        $make = '';
-
-        if (!is_null($parent)) {
-            $make =<<<MAKE
-if (App::make('xbt.compiler')->isExpired('{$parent}')) {
-    App::make('xbt.compiler')->compile('{$parent}');
-}
-
-MAKE;
-        }
-
-        $require = "require_once '" . $this->getCompiledClassPath($path) . "';" . PHP_EOL;
-
-        return $make . $require;
-    }
-
-    protected function compileExtends($extends) : Pair<?string, string>
-    {
-        if (strlen($extends) > 0) {
-            $dependency = $this->finder->find($extends);
-            $parent = $this->compile($dependency);
-            $require = $this->compileRequireOnce($this->finder->find($extends), $dependency);
-        } else {
-            $parent = null;
-            $require = '';
-        }
-
-        return Pair {$parent, $require};
-    }
-
     public function compile($path)
     {
         $this->compileDefinition($path);
 
         $this->compileInvocation($path);
-
-        return $this->getClassName($path);
     }
 
     public function compileDefinition($path) {
-        $template = $this->makeTemplate($path);
 
-        $class = $this->getClassName($path);
+        $template = $this->makeTemplate($path);
 
         $prefix = "<?hh" . PHP_EOL . "/* source: $path */" . PHP_EOL;
 
-        $extends = (string) $template->getAttributes()[':extends'];
-        list($parent, $require) = $this->compileExtends($extends);
-        $targetPath = $this->getCompiledClassPath($path);
-        $contents = $prefix . $require . $template->compile($class, $parent);
-        $this->files->put($targetPath, $contents);
+        $definitionTargetPath = $this->getCompiledTemplateDefinitionPath($path);
+
+        $definition = $template->compile();
+
+        $this->files->put($definitionTargetPath, $prefix . $definition);
     }
 
     public function compileInvocation($path) {
-        $class = $this->getClassName($path);
 
         $prefix = "<?hh" . PHP_EOL . "/* source: $path */" . PHP_EOL;
 
-        $targetPath = $this->getCompiledPath($path);
-        $require = $this->compileRequireOnce(null, $path);
-        $invocation = "echo (new $class(get_defined_vars()))->render();";
-        $this->files->put($targetPath, $prefix . $require . $invocation);
+        $definitionTargetPath = $this->getCompiledTemplateDefinitionPath($path);
+
+        $invocationTargetPath = $this->getCompiledPath($path);
+
+        $invocation =<<<INVOCATION
+\$__inv = (include '$definitionTargetPath');
+echo \$__inv->render(get_defined_vars());
+INVOCATION;
+        $this->files->put($invocationTargetPath, $prefix . $invocation);
     }
 
 }

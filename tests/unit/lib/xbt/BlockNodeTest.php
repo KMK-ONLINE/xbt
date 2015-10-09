@@ -56,7 +56,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
         $block = new BlockNode($attributes, $children);
 
         $expected =<<<'EXPECTED'
-{$this->block_foo_bar()}
+{call_user_func($this->resolveBlock('foo_bar'), $__params)}
 EXPECTED;
 
         $this->assertEquals($expected, $block->render());
@@ -74,11 +74,10 @@ EXPECTED;
         $block = new BlockNode($attributes, $children);
 
         $expected =<<<'EXPECTED'
-    public function block_foo_bar()
-    {
-        extract($this->params);
-        return <x:frag><p>This is just a paragraph</p></x:frag>;
-    }
+        'foo_bar' => function($__params = []) {
+            extract($__params);
+            return <x:frag><p>This is just a paragraph</p></x:frag>;
+        },
 EXPECTED;
 
         $this->assertEquals($expected, $block->renderBody());

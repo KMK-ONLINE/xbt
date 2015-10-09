@@ -42,28 +42,22 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $class = '__xbt_' . md5('foobar_with_doctype');
 
         $expected =<<<EXPECTED
-class $class
-{
-    public function __construct(\$params = [])
-    {
-        \$this->params = \$params;
-    }
-
-    public function render()
-    {
-        extract(\$this->params);
+return new \Lib\\xbt\TemplateRuntime(
+    null,
+    function(\$__params = []) {
+        extract(\$__params);
         return <x:doctype>foobar</x:doctype>;
-    }
-
-    public function block_for_the_win()
-    {
-        extract(\$this->params);
-        return <x:frag><p /></x:frag>;
-    }
-}
+    },
+    [
+        'for_the_win' => function(\$__params = []) {
+            extract(\$__params);
+            return <x:frag><p /></x:frag>;
+        },
+    ]
+);
 EXPECTED;
 
-        $this->assertEquals($expected, $template->compile($class, null));
+        $this->assertEquals($expected, $template->compile());
 
     }
 
@@ -97,9 +91,27 @@ EXPECTED;
         $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':doctype' => $doctype}])->makePartial();
 
         $template = new Template($attributes, $children, $blocks);
+        $expected =<<<EXPECTED
+return new \Lib\\xbt\TemplateRuntime(
+    null,
+    function(\$__params = []) {
+        extract(\$__params);
+        return <x:doctype>foobar</x:doctype>;
+    },
+    [
+        'for_the_win' => function(\$__params = []) {
+            extract(\$__params);
+            return <x:frag><p /></x:frag>;
+        },
+    ]
+);
+EXPECTED;
+
+        $this->assertEquals($expected, $template->compile());
     }
 
-    public function test_compile_ouputs_class()
+
+    public function test_compile_outputs_template_runtime_instance()
     {
 
         $node = m::mock(Node::class)->makePartial();
@@ -126,31 +138,69 @@ EXPECTED;
 
         $template = new Template($attributes, $children, $blocks);
 
-        $class = '__xbt_' . md5('foobar');
-
         $expected =<<<EXPECTED
-class $class
-{
-    public function __construct(\$params = [])
-    {
-        \$this->params = \$params;
-    }
-
-    public function render()
-    {
-        extract(\$this->params);
+return new \Lib\\xbt\TemplateRuntime(
+    null,
+    function(\$__params = []) {
+        extract(\$__params);
         return <x:frag>foobar</x:frag>;
-    }
-
-    public function block_for_the_win()
-    {
-        extract(\$this->params);
-        return <x:frag><p /></x:frag>;
-    }
-}
+    },
+    [
+        'for_the_win' => function(\$__params = []) {
+            extract(\$__params);
+            return <x:frag><p /></x:frag>;
+        },
+    ]
+);
 EXPECTED;
 
-        $this->assertEquals($expected, $template->compile($class, null));
+        $this->assertEquals($expected, $template->compile());
+    }
+
+    public function test_compile_outputs_template_runtime_instance_with_parent() {
+    
+        $node = m::mock(Node::class)->makePartial();
+        $node->shouldReceive('render')->andReturn('');
+
+        $children = m::mock(NodeList::class, [Vector<Node> {$node}])->makePartial();
+        $children->shouldReceive('render')->andReturn('foobar');
+
+        $blockName = m::mock(StringNode::class, ['"for_the_win"'])->makePartial();
+        $blockName->shouldReceive('render')->andReturn('"for_the_win"');
+
+        $blockAttributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => $blockName}])->makePartial();
+        $blockAttributes->shouldReceive('render')->andReturn('name="for_the_win"');
+
+        $p = new TagNode(':p', new TagAttributes, new NodeList);
+
+        $blockChildren = m::mock(NodeList::class, [Vector<Node> {$p}])->makePartial();
+        $blockChildren->shouldReceive('render')->andReturn('<p />');
+
+        $blockNode = m::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
+        $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
+
+        $attributes = m::mock(TagAttributes::class, [Map<string, StringNode> {':extends' => new StringNode('"layouts.mobile"')}])->makePartial();
+
+        $template = new Template($attributes, $children, $blocks);
+        
+        $expected =<<<EXPECTED
+return new \Lib\\xbt\TemplateRuntime(
+    app()['xbt.compiler']->compileExtends('layouts.mobile'),
+    function(\$__params = []) {
+        extract(\$__params);
+        return <x:frag>foobar</x:frag>;
+    },
+    [
+        'for_the_win' => function(\$__params = []) {
+            extract(\$__params);
+            return <x:frag><p /></x:frag>;
+        },
+    ]
+);
+EXPECTED;
+
+        $this->assertEquals($expected, $template->compile());
+
     }
 
     /**

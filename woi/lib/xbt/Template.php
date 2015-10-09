@@ -4,6 +4,7 @@ namespace Lib\xbt;
 
 class Template extends TagNode
 {
+    protected string $extends;
     protected Map<string, BlockNode> $blocks;
     protected bool $doctype;
 
@@ -12,6 +13,8 @@ class Template extends TagNode
         if ($attributes->offsetExists(':extends') && !$attributes->offsetGet(':extends') instanceof StringNode) {
             throw new SyntaxError("Extends attribute must be a StringNode");
         }
+
+        $this->extends = $attributes->offsetGet(':extends');
 
         if ($attributes->offsetExists(':doctype')) {
             if (!$attributes->offsetGet(':doctype') instanceof StringNode) {
@@ -36,47 +39,25 @@ class Template extends TagNode
         return $this->blocks;
     }
 
-    public function compile(string $class, ?string $extends) : string
+    public function compile() : string
     {
         $wrapper = 'x:frag';
-        $classDeclaration = "class $class";
-
-        if (!is_null($extends)) {
-            $classDeclaration .= " extends $extends";
-            $renderDefinition =<<<DEFINITION
-    // defer render method to parent class
-
-DEFINITION;
-
-        } else {
-
-            if ($this->doctype) {
-                $wrapper = 'x:doctype';
-            }
-
-            $renderDefinition =<<<RENDER
-    public function __construct(\$params = [])
-    {
-        \$this->params = \$params;
-    }
-
-    public function render()
-    {
-        extract(\$this->params);
-        return <{$wrapper}>{$this->renderChildren()}</{$wrapper}>;
-    }
-
-RENDER;
+        if ($this->doctype) {
+            $wrapper = 'x:doctype';
         }
-
-        $classDefinition =<<<TEMPLATE
-{$classDeclaration}
-{
-{$renderDefinition}
+        $parent = $this->extends ? "app()['xbt.compiler']->compileExtends('{$this->extends}')" : 'null';
+        return <<<RENDER
+return new \Lib\\xbt\TemplateRuntime(
+    {$parent},
+    function(\$__params = []) {
+        extract(\$__params);
+        return <{$wrapper}>{$this->renderChildren()}</{$wrapper}>;
+    },
+    [
 {$this->compileBlocks()}
-}
-TEMPLATE;
-        return $classDefinition;
+    ]
+);
+RENDER;
     }
 
     public function compileBlocks() : string
@@ -85,7 +66,7 @@ TEMPLATE;
         foreach ($this->getBlocks() as $block) {
             $blocks[] = $block->renderBody();
         }
-        return implode("\n\n", $blocks);
+        return implode("\n", $blocks);
     }
 }
 
