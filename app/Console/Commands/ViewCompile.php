@@ -1,7 +1,8 @@
 <?hh
 namespace App\Console\Commands;
 
-use Config, View;
+use Config;
+use View;
 
 class ViewCompile extends WoiCommand
 {
