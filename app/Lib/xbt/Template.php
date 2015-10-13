@@ -1,6 +1,6 @@
 <?hh // strict
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 class Template extends TagNode
 {
@@ -47,7 +47,7 @@ class Template extends TagNode
         }
         $parent = $this->extends ? "app()['xbt.compiler']->compileExtends('{$this->extends}')" : 'null';
         return <<<RENDER
-return new \Lib\\xbt\TemplateRuntime(
+return new \App\Lib\\xbt\TemplateRuntime(
     {$parent},
     function(\$__params = []) {
         extract(\$__params);

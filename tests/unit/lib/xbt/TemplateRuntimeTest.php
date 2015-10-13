@@ -1,6 +1,6 @@
 <?hh
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 use Mockery as m;
 
@@ -45,7 +45,7 @@ class TemplateRuntimeTest extends \PHPUnit_Framework_TestCase {
         $barfooBlockClosure = $this->child->resolveBlock('barfoo');
         $this->assertEquals(null, $barfooBlockClosure);
     }
-    
+
     public function test_resolveParentBlock() {
         $foobarBlockClosure = $this->child->resolveParentBlock('foobar');
         $this->assertEquals('parent foobar', $foobarBlockClosure());

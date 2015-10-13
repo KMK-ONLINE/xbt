@@ -1,6 +1,6 @@
 <?hh
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 use Illuminate\View\Compilers\CompilerInterface;
 

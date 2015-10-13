@@ -1,6 +1,6 @@
 <?hh
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {

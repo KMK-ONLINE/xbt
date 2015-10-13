@@ -1,6 +1,6 @@
 <?hh // strict
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 class TokenStream
 {
@@ -124,7 +124,7 @@ class TokenStream
 
     /**
      * Try to match the current element with a certain type:
-     * Go forward and return true if success, return false otherwise 
+     * Go forward and return true if success, return false otherwise
      */
     public function consume(int $type, ?string $value = null): bool
     {

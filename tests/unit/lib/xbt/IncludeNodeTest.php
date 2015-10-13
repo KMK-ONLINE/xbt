@@ -1,6 +1,6 @@
 <?hh
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 use Mockery as m;
 
@@ -11,7 +11,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Lib\xbt\SyntaxError
+     * @expectedException App\Lib\xbt\SyntaxError
      */
     public function test_include_node_must_have_template_attribute()
     {
@@ -23,7 +23,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Lib\xbt\SyntaxError
+     * @expectedException App\Lib\xbt\SyntaxError
      */
     public function test_template_attribute_must_be_StringNode()
     {
@@ -67,7 +67,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Lib\xbt\SyntaxError
+     * @expectedException App\Lib\xbt\SyntaxError
      */
     public function test_params_attribute_is_not_a_delimited_expression()
     {
@@ -103,7 +103,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Lib\xbt\SyntaxError
+     * @expectedException App\Lib\xbt\SyntaxError
      */
     public function test_when_attribute_is_not_a_delimited_expression()
     {

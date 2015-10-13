@@ -1,7 +1,7 @@
 <?hh // strict
 
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 abstract class ExpressionNode implements Node
 {

@@ -1,5 +1,5 @@
 <?hh
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 class TemplateRuntime
 {
     protected $parent;

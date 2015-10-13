@@ -1,6 +1,6 @@
 <?hh // strict
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 class TagNode implements NestableNode
 {

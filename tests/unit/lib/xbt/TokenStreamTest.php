@@ -1,6 +1,6 @@
 <?hh
 
-namespace Lib\xbt;
+namespace App\Lib\xbt;
 
 use Mockery as m;
 
@@ -166,7 +166,7 @@ class TokenStreamTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Lib\xbt\SyntaxError
+     * @expectedException App\Lib\xbt\SyntaxError
      */
     public function test_expect_throws_exception_on_unexpected_token()
     {
