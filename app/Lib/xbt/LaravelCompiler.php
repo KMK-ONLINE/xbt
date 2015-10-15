@@ -1,13 +1,10 @@
 <?hh
-
 namespace App\Lib\xbt;
 
 use Illuminate\View\Compilers\CompilerInterface;
-
 use Illuminate\Filesystem\Filesystem;
 
 use Illuminate\View\FileViewFinder;
-
 use Config;
 
 class LaravelCompiler implements CompilerInterface

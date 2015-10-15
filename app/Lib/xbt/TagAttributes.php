@@ -1,5 +1,4 @@
 <?hh
-
 namespace App\Lib\xbt;
 
 class TagAttributes<Tk, Tv> implements Node, \ArrayAccess<string, ExpressionNode>

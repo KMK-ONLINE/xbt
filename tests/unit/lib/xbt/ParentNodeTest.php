@@ -1,19 +1,18 @@
 <?hh
-
 namespace App\Lib\xbt;
 
-use Mockery as m;
+use Mockery;
 
 class ParentNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        m::close();
+        Mockery::close();
     }
 
     public function test_getBlockName_returns_the_parent_block_name()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
 
         $parentNode = new ParentNode('foobar', $attributes);
 
@@ -22,7 +21,7 @@ class ParentNodeTest extends \PHPUnit_Framework_TestCase
 
     public function test_ParentNode_renders_into_current_blocks_parent_method_call()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
 
         $parentNode = new ParentNode('foobar', $attributes);
 

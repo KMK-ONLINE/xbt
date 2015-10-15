@@ -2,12 +2,13 @@
 
 namespace App\Lib\xbt;
 
-use Mockery as m;
+use Mockery;
 
 class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
+
     public function tearDown()
     {
-        m::close();
+        Mockery::close();
     }
 
     /**

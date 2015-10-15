@@ -1,14 +1,13 @@
 <?hh
-
 namespace App\Lib\xbt;
 
-use Mockery as m;
+use Mockery;
 
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        m::close();
+        Mockery::close();
     }
 
     public function test_getStream_returns_TokenStream()
@@ -20,7 +19,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(T_XHP_TAG_GT, '>'),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -36,7 +35,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(T_XHP_TAG_GT, '>'),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -52,11 +51,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(T_XHP_TAG_GT, '>'),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
-        $block = m::mock(BlockNode::class)->makePartial();
+        $block = Mockery::mock(BlockNode::class)->makePartial();
         $block->shouldReceive('getNameAttribute')->andReturn('acegol');
         $parser->addBlock($block);
 
@@ -68,14 +67,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function test_addBlock_throws_an_exception_if_theres_a_block_with_a_same_name()
     {
-        $tokenStream = m::mock(TokenStream::class, [[]])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [[]])->makePartial();
         $parser = new Parser($tokenStream);
 
-        $block = m::mock(BlockNode::class)->makePartial();
+        $block = Mockery::mock(BlockNode::class)->makePartial();
         $block->shouldReceive('getNameAttribute')->andReturn('acegol');
         $parser->addBlock($block);
 
-        $duplicateBlock = m::mock(BlockNode::class)->makePartial();
+        $duplicateBlock = Mockery::mock(BlockNode::class)->makePartial();
         $duplicateBlock->shouldReceive('getNameAttribute')->andReturn('acegol');
         $parser->addBlock($duplicateBlock);
     }
@@ -89,7 +88,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(T_XHP_TAG_GT, '>'),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -107,7 +106,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -132,7 +131,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -148,7 +147,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -170,7 +169,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -192,7 +191,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(T_XHP_TAG_GT, '>'),
             new Token(Token::T_XHP_EOF),
         ];
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -212,7 +211,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -238,7 +237,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -267,7 +266,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -288,7 +287,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -308,7 +307,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -348,7 +347,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -381,7 +380,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -403,7 +402,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -422,7 +421,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -438,7 +437,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(T_XHP_TAG_GT, '>'),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -468,7 +467,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -498,7 +497,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -534,7 +533,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -582,7 +581,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
 
         $parser = new Parser($tokenStream);
 
@@ -604,7 +603,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -629,7 +628,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);
@@ -658,7 +657,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $tokenStream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
 
         $parser = new Parser($tokenStream);

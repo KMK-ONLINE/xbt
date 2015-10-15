@@ -1,8 +1,7 @@
 <?hh
-
 namespace App\Lib\xbt;
 
-use Mockery as m;
+use Mockery;
 
 class TokenStreamTest extends \PHPUnit_Framework_TestCase
 {
@@ -147,7 +146,7 @@ class TokenStreamTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $stream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $stream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $stream->shouldReceive('match')->once()->andReturn(true);
         $stream->shouldReceive('next')->once();
 
@@ -186,7 +185,7 @@ class TokenStreamTest extends \PHPUnit_Framework_TestCase
             new Token(Token::T_XHP_EOF),
         ];
 
-        $stream = m::mock(TokenStream::class, [$tokens])->makePartial();
+        $stream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
         $stream->shouldReceive('match')->once()->andReturn(true);
         $stream->shouldReceive('next')->once();
 

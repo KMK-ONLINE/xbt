@@ -1,5 +1,4 @@
 <?hh
-
 namespace App\Lib\xbt;
 
 class TextNodeTest extends \PHPUnit_Framework_TestCase

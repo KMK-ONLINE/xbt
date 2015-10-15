@@ -1,21 +1,20 @@
 <?hh
-
 namespace App\Lib\xbt;
 
-use Mockery as m;
+use Mockery;
 
 class NodeListTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        m::close();
+        Mockery::close();
     }
 
     public function test_getNodes_should_return_an_vector_of_nodes_in_the_list()
     {
         $nodes = Vector<Node> {
-            m::mock(Node::class)->makePartial(),
-            m::mock(Node::class)->makePartial(),
+            Mockery::mock(Node::class)->makePartial(),
+            Mockery::mock(Node::class)->makePartial(),
         };
 
         $nodeList = new NodeList($nodes);
@@ -28,10 +27,10 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
 
     public function test_render_should_render_all_nodes_in_the_list()
     {
-        $node1 = m::mock(Node::class)->makePartial();
+        $node1 = Mockery::mock(Node::class)->makePartial();
         $node1->shouldReceive('render')->once();
 
-        $node2 = m::mock(Node::class)->makePartial();
+        $node2 = Mockery::mock(Node::class)->makePartial();
         $node2->shouldReceive('render')->once();
 
         $nodes = Vector<Node> {

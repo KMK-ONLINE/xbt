@@ -1,8 +1,5 @@
 <?hh
-
 namespace App\Lib\xbt;
-
-use Mockery as m;
 
 class TemplateRuntimeTest extends \PHPUnit_Framework_TestCase {
 

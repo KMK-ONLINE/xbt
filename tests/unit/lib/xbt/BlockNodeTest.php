@@ -4,6 +4,12 @@ namespace App\Lib\xbt;
 
 use Mockery as m;
 
+use App\Lib\xbt\BlockNode;
+use App\Lib\xbt\TagAttributes;
+use Node;
+use App\Lib\xbt\StringNode;
+use App\Lib\xbt\NodeList;
+
 class BlockNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
