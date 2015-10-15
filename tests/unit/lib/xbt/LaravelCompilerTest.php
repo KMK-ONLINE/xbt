@@ -1,6 +1,6 @@
 <?hh
 
-namespace App\Lib\xbt;
+namespace App\Publishing\Lib\xbt;
 
 use App;
 use Mockery as m;

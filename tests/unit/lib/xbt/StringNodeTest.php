@@ -1,5 +1,5 @@
 <?hh
-namespace App\Lib\xbt;
+namespace App\Publishing\Lib\xbt;
 
 class StringNodeTest extends \PHPUnit_Framework_TestCase
 {

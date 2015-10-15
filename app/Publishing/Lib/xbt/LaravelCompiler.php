@@ -1,5 +1,5 @@
 <?hh
-namespace App\Lib\xbt;
+namespace App\Publishing\Lib\xbt;
 
 use Illuminate\View\Compilers\CompilerInterface;
 use Illuminate\Filesystem\Filesystem;

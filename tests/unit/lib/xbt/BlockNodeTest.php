@@ -1,14 +1,14 @@
 <?hh
 
-namespace App\Lib\xbt;
+namespace App\Publishing\Lib\xbt;
 
 use Mockery as m;
 
-use App\Lib\xbt\BlockNode;
-use App\Lib\xbt\TagAttributes;
+use App\Publishing\Lib\xbt\BlockNode;
+use App\Publishing\Lib\xbt\TagAttributes;
 use Node;
-use App\Lib\xbt\StringNode;
-use App\Lib\xbt\NodeList;
+use App\Publishing\Lib\xbt\StringNode;
+use App\Publishing\Lib\xbt\NodeList;
 
 class BlockNodeTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Lib\xbt\SyntaxError
+     * @expectedException App\Publishing\Lib\xbt\SyntaxError
      */
     public function test_block_name_must_not_contain_dots()
     {
@@ -30,7 +30,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Lib\xbt\SyntaxError
+     * @expectedException App\Publishing\Lib\xbt\SyntaxError
      */
     public function test_block_name_must_not_contain_dashes()
     {
@@ -42,7 +42,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Lib\xbt\SyntaxError
+     * @expectedException App\Publishing\Lib\xbt\SyntaxError
      */
     public function test_block_name_must_not_contain_anything_other_than_alphanumeric_and_underscores()
     {

@@ -1,6 +1,6 @@
 <?hh // strict
 
-namespace App\Lib\xbt;
+namespace App\Publishing\Lib\xbt;
 
 class DelimitedExpressionNode extends ExpressionNode
 {
