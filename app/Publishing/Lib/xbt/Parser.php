@@ -107,6 +107,8 @@ class Parser
                 $nodes[] = $this->parseText();
             } elseif ($stream->match(Token::T_XHP_BRACE_OPEN)) {
                 $nodes[] = $this->parseDelimitedExpression();
+            } elseif ($stream->match(T_COMMENT)) {
+                $nodes[] = $this->parseComment();
             } else {
               throw new SyntaxError(sprintf('Inconsistent parser state: child component must either be a tag, a text, or an expression at Found: %s at Line: %d, Near: %s', token_name($stream->getCurrent()->type), $stream->row, $stream->text));
             }
@@ -214,6 +216,15 @@ class Parser
         }
 
         return new TextNode($token->value);
+    }
+
+    public function parseComment() : CommentNode
+    {
+        $stream = $this->getStream();
+
+        $token = $stream->expect(T_COMMENT);
+
+        return new CommentNode($token->value);
     }
 
     public function parseIncludeTag() : IncludeNode

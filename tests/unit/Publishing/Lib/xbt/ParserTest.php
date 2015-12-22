@@ -177,6 +177,24 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser->parseText();
     }
 
+    public function test_parseComment_returns_CommentNode_object()
+    {
+        $tokens = [
+            new Token(T_COMMENT, '<!-- hoo haa -->'),
+        ];
+
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
+
+        $parser = new Parser($tokenStream);
+
+        $commentNode = $parser->parseComment();
+
+        $this->assertTrue($commentNode instanceof CommentNode);
+
+        $this->assertEquals('<raw-string>{\'<!-- hoo haa -->\'}</raw-string>', $commentNode->render());
+    }
+
     public function test_parseIncludeTag_returns_an_includeNode_and_render_properly()
     {
         $tokens = [
@@ -665,6 +683,29 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $expr = $parser->parseDelimitedExpression();
 
         $this->assertEquals('{<foobar pukimak={$blockname} />}', $expr->render());
+    }
+
+    public function test_parseTag_can_parse_xml_comments()
+    {
+        $tokens = [
+            new Token(T_XHP_TAG_LT, '<'),
+            new Token(T_XHP_LABEL, 'div'),
+            new Token(T_XHP_TAG_GT, '>'),
+            new Token(T_COMMENT, '<!-- foo bar -->'),
+            new Token(T_XHP_TAG_LT, '<'),
+            new Token(Token::T_XHP_TAG_SLASH, '/'),
+            new Token(T_XHP_LABEL, 'div'),
+            new Token(T_XHP_TAG_GT, '>'),
+        ];
+
+        $tokenStream = Mockery::mock(TokenStream::class, [$tokens])->makePartial();
+        $tokenStream->shouldReceive('getTokens')->andReturn($tokens);
+
+        $parser = new Parser($tokenStream);
+
+        $expr = $parser->parseTag(':div');
+
+        $this->assertEquals('<div><raw-string>{\'<!-- foo bar -->\'}</raw-string></div>', $expr->render());
     }
 }
 
