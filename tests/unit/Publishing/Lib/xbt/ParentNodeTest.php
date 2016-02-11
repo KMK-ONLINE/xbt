@@ -25,7 +25,7 @@ class ParentNodeTest extends \PHPUnit_Framework_TestCase
 
         $parentNode = new ParentNode('foobar', $attributes);
 
-        $expected = '{is_callable(\'parent::block_foobar\') ? parent::block_foobar() : null}';
+        $expected = '{($_ = $this->resolveParentBlock(\'foobar\')) ? call_user_func($_, $__params) : null}';
 
         $actual = $parentNode->render();
 

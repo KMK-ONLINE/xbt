@@ -21,9 +21,9 @@ class ParentNode implements Node
 
     public function render() : string
     {
-        $parent = 'parent::block_' . $this->getBlockName();
+        $parent = $this->getBlockName();
 
-        return '{is_callable(\'' . $parent . '\') ? ' . $parent . '() : null}';
+        return '{($_ = $this->resolveParentBlock(\'' . $parent . '\')) ? call_user_func($_, $__params) : null}';
     }
 }
 
