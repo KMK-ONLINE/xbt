@@ -21,5 +21,15 @@ class CommentNodeTest extends \PHPUnit_Framework_TestCase
 EXPECTED;
         $this->assertEquals($expected, $comment->render());
     }
+
+    public function test_render_renders_the_multiline_comment_node()
+    {
+        $comment = new CommentNode("<!--> ISI KOMEN < ! -->");
+
+        $expected =<<<'EXPECTED'
+<raw-string>{'<!--> ISI KOMEN < ! -->'}</raw-string>
+EXPECTED;
+        $this->assertEquals($expected, $comment->render());
+    }
 }
 
