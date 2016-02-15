@@ -178,13 +178,13 @@ EXPECTED;
         $blockNode = Mockery::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
         $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
 
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, StringNode> {':extends' => new StringNode('"layouts.mobile"')}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [Map<string, StringNode> {':extends' => new StringNode('"layouts.mobile.root"')}])->makePartial();
 
         $template = new Template($attributes, $children, $blocks);
 
         $expected =<<<EXPECTED
 return new \App\Publishing\Lib\\xbt\TemplateRuntime(
-    app()['xbt.compiler']->compileExtends('layouts.mobile'),
+    app()['xbt.compiler']->compileExtends('layouts.mobile.root'),
     function(\$__params = []) {
         extract(\$__params);
         return <x:frag>foobar</x:frag>;
