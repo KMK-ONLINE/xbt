@@ -85,7 +85,7 @@ EXPECTED;
         $blockNode = Mockery::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
         $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
 
-        $doctype = Mockery::mock(ExpressionNode::class, ['{"true"}'])->makePartial();
+        $doctype = Mockery::mock(DelimitedExpressionNode::class, ['{"true"}'])->makePartial();
 
         $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':doctype' => $doctype}])->makePartial();
 
