@@ -96,7 +96,7 @@ class LaravelCompiler implements CompilerInterface
 
         $invocation =<<<INVOCATION
 \$__inv = (include '$definitionTargetPath');
-echo \$__inv->render(get_defined_vars());
+echo \$__inv->render(\$__data);
 INVOCATION;
         $this->files->put($invocationTargetPath, $prefix . $invocation);
     }

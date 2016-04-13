@@ -48,6 +48,6 @@ class IncludeNode extends TagNode {
 
         $params = $attributes->offsetExists(':params') ? $attributes->offsetGet(':params') : '[]' ;
 
-        return '<raw-string>{(' . $when . ') ? $__env->make(\'' . $template . '\', ' . $params . ')->render() : \'\'}</raw-string>';
+        return '<raw-string>{(' . $when . ') ? $__params[\'__env\']->make(\'' . $template . '\', ' . $params . ')->render() : \'\'}</raw-string>';
     }
 }

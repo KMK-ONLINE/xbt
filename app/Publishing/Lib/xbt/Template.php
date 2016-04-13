@@ -50,7 +50,6 @@ class Template extends TagNode
 return new \App\Publishing\Lib\\xbt\TemplateRuntime(
     {$parent},
     function(\$__params = []) {
-        extract(\$__params);
         return <{$wrapper}>{$this->renderChildren()}</{$wrapper}>;
     },
     [

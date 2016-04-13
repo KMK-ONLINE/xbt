@@ -44,12 +44,10 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
 return new \App\Publishing\Lib\\xbt\TemplateRuntime(
     null,
     function(\$__params = []) {
-        extract(\$__params);
         return <x:doctype>foobar</x:doctype>;
     },
     [
         'for_the_win' => function(\$__params = []) {
-            extract(\$__params);
             return <x:frag><p /></x:frag>;
         },
     ]
@@ -94,12 +92,10 @@ EXPECTED;
 return new \App\Publishing\Lib\\xbt\TemplateRuntime(
     null,
     function(\$__params = []) {
-        extract(\$__params);
         return <x:doctype>foobar</x:doctype>;
     },
     [
         'for_the_win' => function(\$__params = []) {
-            extract(\$__params);
             return <x:frag><p /></x:frag>;
         },
     ]
@@ -141,12 +137,10 @@ EXPECTED;
 return new \App\Publishing\Lib\\xbt\TemplateRuntime(
     null,
     function(\$__params = []) {
-        extract(\$__params);
         return <x:frag>foobar</x:frag>;
     },
     [
         'for_the_win' => function(\$__params = []) {
-            extract(\$__params);
             return <x:frag><p /></x:frag>;
         },
     ]
@@ -186,12 +180,10 @@ EXPECTED;
 return new \App\Publishing\Lib\\xbt\TemplateRuntime(
     app()['xbt.compiler']->compileExtends('layouts.mobile.root'),
     function(\$__params = []) {
-        extract(\$__params);
         return <x:frag>foobar</x:frag>;
     },
     [
         'for_the_win' => function(\$__params = []) {
-            extract(\$__params);
             return <x:frag><p /></x:frag>;
         },
     ]

@@ -43,7 +43,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = '<raw-string>{(true) ? $__env->make(\'foobar\', [])->render() : \'\'}</raw-string>';
+        $expected = '<raw-string>{(true) ? $__params[\'__env\']->make(\'foobar\', [])->render() : \'\'}</raw-string>';
 
         $this->assertEquals($expected, $includeNode->render());
     }
@@ -62,7 +62,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = '<raw-string>{(true) ? $__env->make(\'foobar\', [\'foo\' => \'bar\'])->render() : \'\'}</raw-string>';
+        $expected = '<raw-string>{(true) ? $__params[\'__env\']->make(\'foobar\', [\'foo\' => \'bar\'])->render() : \'\'}</raw-string>';
 
         $this->assertEquals($expected, $includeNode->render());
     }
@@ -97,7 +97,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = "<raw-string>{(true) ? \$__env->make('foobar', ['foo' => 'bar',\n'baz' => 'zulu'])->render() : ''}</raw-string>";
+        $expected = "<raw-string>{(true) ? \$__params['__env']->make('foobar', ['foo' => 'bar',\n'baz' => 'zulu'])->render() : ''}</raw-string>";
 
         $this->assertEquals($expected, $includeNode->render());
 
@@ -133,7 +133,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $includeNode = new IncludeNode($tagAttributes);
 
-        $expected = "<raw-string>{(true) ? \$__env->make('foobar', [])->render() : ''}</raw-string>";
+        $expected = "<raw-string>{(true) ? \$__params['__env']->make('foobar', [])->render() : ''}</raw-string>";
 
         $this->assertEquals($expected, $includeNode->render());
 

@@ -216,7 +216,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $includeNode = $parser->parseIncludeTag();
 
         $this->assertTrue($includeNode instanceof IncludeNode);
-        $this->assertEquals('<raw-string>{(true) ? $__env->make(\'sidebar\', [])->render() : \'\'}</raw-string>', $includeNode->render());
+        $this->assertEquals('<raw-string>{(true) ? $__params[\'__env\']->make(\'sidebar\', [])->render() : \'\'}</raw-string>', $includeNode->render());
     }
 
     public function test_parseTag_a_specific_tag_returns_TagNode_object_and_renders_properly()

@@ -46,7 +46,6 @@ RENDER;
     {
         $block =<<<BLOCK
         '{$this->getNameAttribute()}' => function(\$__params = []) {
-            extract(\$__params);
             return <x:frag>{$this->renderChildren()}</x:frag>;
         },
 BLOCK;

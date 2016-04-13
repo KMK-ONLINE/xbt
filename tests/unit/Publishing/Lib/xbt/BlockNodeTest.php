@@ -81,7 +81,6 @@ EXPECTED;
 
         $expected =<<<'EXPECTED'
         'foo_bar' => function($__params = []) {
-            extract($__params);
             return <x:frag><p>This is just a paragraph</p></x:frag>;
         },
 EXPECTED;

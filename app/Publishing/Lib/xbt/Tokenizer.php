@@ -35,6 +35,9 @@ class Tokenizer
                     }
                     return new Token($type, $token);
                 } elseif (is_array($token)) {
+                    if ($token[0] == T_VARIABLE) {
+                        $token[1] = $this->variableize($token[1]);
+                    }
                     return new Token($token[0], $token[1], $token[2]);
                 } else {
                     throw new \InvalidArgumentException('provided token is a ' . gettype($token) . ', string or array from token_get_all needed');
@@ -46,6 +49,11 @@ class Tokenizer
         array_shift($tokens);
         $tokens[] = new Token(Token::T_XHP_EOF);
         return new TokenStream($tokens);
+    }
+
+    public function variableize(string $var)
+    {
+        return '$__params[\'' . substr($var, 1) . '\']';
     }
 }
 
