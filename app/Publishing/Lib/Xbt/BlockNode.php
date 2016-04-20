@@ -38,14 +38,14 @@ class BlockNode extends TagNode
     public function render() : string
     {
         return <<<RENDER
-{call_user_func(\$this->resolveBlock('{$this->getNameAttribute()}'), \$__params)}
+{call_user_func(\$__this->resolveBlock('{$this->getNameAttribute()}'), \$__this, \$__params)}
 RENDER;
     }
 
     public function renderBody() : string
     {
         $block =<<<BLOCK
-        '{$this->getNameAttribute()}' => function(\$__params = []) {
+        '{$this->getNameAttribute()}' => function(\$__this, \$__params = []) {
             return <x:frag>{$this->renderChildren()}</x:frag>;
         },
 BLOCK;

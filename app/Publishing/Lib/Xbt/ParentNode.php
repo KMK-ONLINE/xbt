@@ -23,7 +23,7 @@ class ParentNode implements Node
     {
         $parent = $this->getBlockName();
 
-        return '{($_ = $this->resolveParentBlock(\'' . $parent . '\')) ? call_user_func($_, $__params) : null}';
+        return '{($_ = $__this->resolveParentBlock(\'' . $parent . '\')) ? call_user_func($_, $__this, $__params) : null}';
     }
 }
 

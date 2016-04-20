@@ -43,11 +43,11 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $expected =<<<EXPECTED
 return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     null,
-    function(\$__params = []) {
+    function(\$__this, \$__params = []) {
         return <x:doctype>foobar</x:doctype>;
     },
     [
-        'for_the_win' => function(\$__params = []) {
+        'for_the_win' => function(\$__this, \$__params = []) {
             return <x:frag><p /></x:frag>;
         },
     ]
@@ -91,11 +91,11 @@ EXPECTED;
         $expected =<<<EXPECTED
 return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     null,
-    function(\$__params = []) {
+    function(\$__this, \$__params = []) {
         return <x:doctype>foobar</x:doctype>;
     },
     [
-        'for_the_win' => function(\$__params = []) {
+        'for_the_win' => function(\$__this, \$__params = []) {
             return <x:frag><p /></x:frag>;
         },
     ]
@@ -136,11 +136,11 @@ EXPECTED;
         $expected =<<<EXPECTED
 return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     null,
-    function(\$__params = []) {
+    function(\$__this, \$__params = []) {
         return <x:frag>foobar</x:frag>;
     },
     [
-        'for_the_win' => function(\$__params = []) {
+        'for_the_win' => function(\$__this, \$__params = []) {
             return <x:frag><p /></x:frag>;
         },
     ]
@@ -178,12 +178,12 @@ EXPECTED;
 
         $expected =<<<EXPECTED
 return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
-    app()['xbt.compiler']->compileExtends('layouts.mobile.root'),
-    function(\$__params = []) {
+    app('xbt.compiler')->compileExtends('layouts.mobile.root'),
+    function(\$__this, \$__params = []) {
         return <x:frag>foobar</x:frag>;
     },
     [
-        'for_the_win' => function(\$__params = []) {
+        'for_the_win' => function(\$__this, \$__params = []) {
             return <x:frag><p /></x:frag>;
         },
     ]

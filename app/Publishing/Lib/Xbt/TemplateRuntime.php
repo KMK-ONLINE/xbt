@@ -12,12 +12,12 @@ class TemplateRuntime
 
         $this->render = isset($this->parent) ? $this->parent->render : $render;
 
-        $this->render = $this->render->bindTo($this, __CLASS__);
+        //$this->render = $this->render->bindTo($this, __CLASS__);
 
         $this->blocks = $blocks + (isset($this->parent) ? $this->parent->blocks : []);
 
         foreach ($this->blocks as $i => $block) {
-            $this->blocks[$i] = $block->bindTo($this, __CLASS__);
+            // $this->blocks[$i] = $block->bindTo($this, __CLASS__);
         }
     }
 
@@ -38,7 +38,7 @@ class TemplateRuntime
 
     public function render($params = [])
     {
-        return call_user_func($this->resolveRender(), $params);
+        return call_user_func($this->resolveRender(), $this, $params);
     }
 }
 
