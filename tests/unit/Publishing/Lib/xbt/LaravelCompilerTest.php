@@ -21,7 +21,7 @@ class LaravelCompilerTest extends \PHPUnit_Framework_TestCase
 
         $compiler = new LaravelCompiler($mockFS, '/cache/path', '/class/path', []);
 
-        $this->assertEquals('/cache/path/' . md5($path), $compiler->getCompiledPath($path));
+        $this->assertEquals('/cache/path/' . md5($path) . '.php', $compiler->getCompiledPath($path));
     }
 
     public function test_getCompiledTemplateDefinitionPath_returns_the_path_to_the_compiled_class_definition()
