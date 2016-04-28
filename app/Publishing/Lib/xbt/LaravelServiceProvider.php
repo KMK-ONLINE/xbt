@@ -14,7 +14,7 @@ class LaravelServiceProvider extends ServiceProvider {
 
         $resolver = $app['view.engine.resolver'];
 
-        $app->bindShared('xbt.compiler', function($app) {
+        $app->singleton('xbt.compiler', function($app) {
             $cachePath = $app['config']['view.compiled'];
             $classPath = $app['config']['view.xbt_cache'];
             return new LaravelCompiler($app['files'], $cachePath, $classPath, Config::get('view')['paths']);
