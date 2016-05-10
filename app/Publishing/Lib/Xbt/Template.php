@@ -47,7 +47,7 @@ class Template extends TagNode
         }
         $parent = $this->extends ? "app()['xbt.compiler']->compileExtends('{$this->extends}')" : 'null';
         return <<<RENDER
-return new \App\Publishing\Lib\\xbt\TemplateRuntime(
+return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     {$parent},
     function(\$__params = []) {
         return <{$wrapper}>{$this->renderChildren()}</{$wrapper}>;
