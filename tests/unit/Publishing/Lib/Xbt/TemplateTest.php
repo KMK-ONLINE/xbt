@@ -41,7 +41,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $class = '__xbt_' . md5('foobar_with_doctype');
 
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\xbt\TemplateRuntime(
+return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     null,
     function(\$__params = []) {
         return <x:doctype>foobar</x:doctype>;
@@ -89,7 +89,7 @@ EXPECTED;
 
         $template = new Template($attributes, $children, $blocks);
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\xbt\TemplateRuntime(
+return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     null,
     function(\$__params = []) {
         return <x:doctype>foobar</x:doctype>;
@@ -134,7 +134,7 @@ EXPECTED;
         $template = new Template($attributes, $children, $blocks);
 
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\xbt\TemplateRuntime(
+return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     null,
     function(\$__params = []) {
         return <x:frag>foobar</x:frag>;
@@ -177,7 +177,7 @@ EXPECTED;
         $template = new Template($attributes, $children, $blocks);
 
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\xbt\TemplateRuntime(
+return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
     app()['xbt.compiler']->compileExtends('layouts.mobile.root'),
     function(\$__params = []) {
         return <x:frag>foobar</x:frag>;
