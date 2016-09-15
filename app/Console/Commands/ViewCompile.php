@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Console\Commands;
 
 use Config;
