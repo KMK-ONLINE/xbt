@@ -1,14 +1,7 @@
-<?hh
-
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery as m;
-
-use App\Publishing\Lib\Xbt\BlockNode;
-use App\Publishing\Lib\Xbt\TagAttributes;
-use Node;
-use App\Publishing\Lib\Xbt\StringNode;
-use App\Publishing\Lib\Xbt\NodeList;
 
 class BlockNodeTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,9 +15,9 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function test_block_name_must_not_contain_dots()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => m::mock(StringNode::class, ['"foo.bar"'])->makePartial()}])->makePartial();
+        $attributes = m::mock(TagAttributes::class, [[':name' => m::mock(StringNode::class, ['"foo.bar"'])->makePartial()]])->makePartial();
 
-        $children = m::mock(NodeList::class, [Vector<Node> {}])->makePartial();
+        $children = m::mock(NodeList::class, [[]])->makePartial();
 
         $block = new BlockNode($attributes, $children);
     }
@@ -34,9 +27,9 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function test_block_name_must_not_contain_dashes()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => m::mock(StringNode::class, ['"foo-bar"'])->makePartial()}])->makePartial();
+        $attributes = m::mock(TagAttributes::class, [[':name' => m::mock(StringNode::class, ['"foo-bar"'])->makePartial()]])->makePartial();
 
-        $children = m::mock(NodeList::class, [Vector<Node> {}])->makePartial();
+        $children = m::mock(NodeList::class, [[]])->makePartial();
 
         $block = new BlockNode($attributes, $children);
     }
@@ -46,18 +39,18 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function test_block_name_must_not_contain_anything_other_than_alphanumeric_and_underscores()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => m::mock(StringNode::class, ['"^foo@bar!"'])->makePartial()}])->makePartial();
+        $attributes = m::mock(TagAttributes::class, [[':name' => m::mock(StringNode::class, ['"^foo@bar!"'])->makePartial()]])->makePartial();
 
-        $children = m::mock(NodeList::class, [Vector<Node> {}])->makePartial();
+        $children = m::mock(NodeList::class, [[]])->makePartial();
 
         $block = new BlockNode($attributes, $children);
     }
 
     public function test_render_renders_the_block_call()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => m::mock(StringNode::class, ['"foo_bar"'])->makePartial()}])->makePartial();
+        $attributes = m::mock(TagAttributes::class, [[':name' => m::mock(StringNode::class, ['"foo_bar"'])->makePartial()]])->makePartial();
 
-        $children = m::mock(NodeList::class, [Vector<Node> {}])->makePartial();
+        $children = m::mock(NodeList::class, [[]])->makePartial();
 
         $block = new BlockNode($attributes, $children);
 
@@ -70,12 +63,12 @@ EXPECTED;
 
     public function test_renderBody_renders_the_body_of_the_block()
     {
-        $attributes = m::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => m::mock(StringNode::class, ['"foo_bar"'])->makePartial()}])->makePartial();
+        $attributes = m::mock(TagAttributes::class, [[':name' => m::mock(StringNode::class, ['"foo_bar"'])->makePartial()]])->makePartial();
 
         $p = m::mock(Node::class)->makePartial();
         $p->shouldReceive('render')->andReturn('<p>This is just a paragraph</p>');
 
-        $children = m::mock(NodeList::class, [Vector<Node> {$p}])->makePartial();
+        $children = m::mock(NodeList::class, [[$p]])->makePartial();
 
         $block = new BlockNode($attributes, $children);
 

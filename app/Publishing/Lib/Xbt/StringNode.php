@@ -1,12 +1,11 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class StringNode extends ExpressionNode
 {
-    protected string $string;
+    protected $string;
 
-    public function __construct(string $string)
+    public function __construct(/*string */$string)
     {
         $first = $string[0];
         $last = $string[strlen($string)-1];
@@ -18,12 +17,12 @@ class StringNode extends ExpressionNode
         $this->string = $string;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         return $this->string;
     }
 
-    public function __toString() : string
+    public function __toString() //: string
     {
         return substr($this->string, 1, -1);
     }

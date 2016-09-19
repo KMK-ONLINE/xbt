@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 class StringNodeTest extends \PHPUnit_Framework_TestCase

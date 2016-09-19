@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -15,7 +15,7 @@ class TagAttributesTest extends \PHPUnit_Framework_TestCase
         $expression = Mockery::mock(StringNode::class)->makePartial();
         $expression->shouldReceive('render')->andReturn('"this is just a string"');
 
-        $attributes = new TagAttributes(Map<string, ExpressionNode> {':foo' => $expression});
+        $attributes = new TagAttributes([':foo' => $expression]);
 
         $this->assertTrue($attributes instanceof \ArrayAccess);
     }
@@ -26,7 +26,7 @@ class TagAttributesTest extends \PHPUnit_Framework_TestCase
         $expression = Mockery::mock(StringNode::class)->makePartial();
         $expression->shouldReceive('render')->andReturn($text);
 
-        $attributes = new TagAttributes(Map<string, ExpressionNode> {':foo' => $expression});
+        $attributes = new TagAttributes([':foo' => $expression]);
         $this->assertEquals('foo=' . $text, $attributes->render());
     }
 }

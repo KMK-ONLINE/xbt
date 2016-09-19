@@ -1,5 +1,4 @@
-<?hh
-
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 class CommentNodeTest extends \PHPUnit_Framework_TestCase

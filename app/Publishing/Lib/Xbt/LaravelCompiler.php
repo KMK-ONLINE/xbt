@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Illuminate\View\Compilers\CompilerInterface;
@@ -22,7 +22,6 @@ class LaravelCompiler implements CompilerInterface
         $this->finder = new FileViewFinder($this->files, $paths, ['xbt.php']);
     }
 
-    <<__Override>>
     public function getCompiledPath($path)
     {
         return $this->cachePath . '/' . md5($path) . '.php';
@@ -33,7 +32,6 @@ class LaravelCompiler implements CompilerInterface
         return $this->classPath . '/' . md5($path) . '.php';
     }
 
-    <<__Override>>
     public function isExpired($path)
     {
         $compiledClass = $this->getCompiledTemplateDefinitionPath($path);
@@ -68,7 +66,6 @@ class LaravelCompiler implements CompilerInterface
         return $parser->parse();
     }
 
-    <<__Override>>
     public function compile($path)
     {
         $this->compileDefinition($path);

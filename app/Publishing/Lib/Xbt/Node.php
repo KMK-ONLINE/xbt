@@ -1,9 +1,8 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 interface Node
 {
-    public function render() : string;
+    public function render() /*: string*/;
 }
 

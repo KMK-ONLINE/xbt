@@ -1,5 +1,4 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class BlockNode extends TagNode
@@ -25,7 +24,7 @@ class BlockNode extends TagNode
         parent::__construct(':xbt:block', $attributes, $children);
     }
 
-    public function getNameAttribute() : string
+    public function getNameAttribute() //: string
     {
         return (string) $this->getAttributes()->offsetGet(':name');
     }
@@ -35,14 +34,14 @@ class BlockNode extends TagNode
         return $this->children;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         return <<<RENDER
 {call_user_func(\$__this->resolveBlock('{$this->getNameAttribute()}'), \$__this, \$__params)}
 RENDER;
     }
 
-    public function renderBody() : string
+    public function renderBody() //: string
     {
         $block =<<<BLOCK
         '{$this->getNameAttribute()}' => function(\$__this, \$__params = []) {

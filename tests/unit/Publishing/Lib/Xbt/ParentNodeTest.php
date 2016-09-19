@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -12,7 +12,7 @@ class ParentNodeTest extends \PHPUnit_Framework_TestCase
 
     public function test_getBlockName_returns_the_parent_block_name()
     {
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [[]])->makePartial();
 
         $parentNode = new ParentNode('foobar', $attributes);
 
@@ -21,7 +21,7 @@ class ParentNodeTest extends \PHPUnit_Framework_TestCase
 
     public function test_ParentNode_renders_into_current_blocks_parent_method_call()
     {
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [[]])->makePartial();
 
         $parentNode = new ParentNode('foobar', $attributes);
 

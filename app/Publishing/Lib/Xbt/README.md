@@ -38,7 +38,7 @@ $result      = $parser->parse();
 
 `$result` should be like something like this
 ```
-<?hh
+<?php
 
 class __xbt_4bc492834a61e30d17d158c6a052837584b1db90 extends App\Publishing\Lib\Xbt\Runtime
 {

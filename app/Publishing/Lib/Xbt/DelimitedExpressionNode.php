@@ -1,12 +1,11 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class DelimitedExpressionNode extends ExpressionNode
 {
-    protected string $expression;
+    protected $expression;
 
-    public function __construct(string $expression)
+    public function __construct(/*string */$expression)
     {
         $first = $expression[0];
         $last = $expression[strlen($expression)-1];
@@ -18,12 +17,12 @@ class DelimitedExpressionNode extends ExpressionNode
         $this->expression = $expression;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         return $this->expression;
     }
 
-    public function __toString() : string
+    public function __toString() //: string
     {
         return substr($this->expression, 1, -1);
     }

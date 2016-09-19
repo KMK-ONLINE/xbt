@@ -1,22 +1,21 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class TextNode implements Node
 {
-    protected string $text;
+    protected $text;
 
-    public function __construct(string $text)
+    public function __construct(/*string */$text)
     {
         $this->text = $text;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         return $this->text;
     }
 
-    public function isWhitespace() : bool
+    public function isWhitespace() //: bool
     {
         return strlen(trim($this->text)) === 0;
     }

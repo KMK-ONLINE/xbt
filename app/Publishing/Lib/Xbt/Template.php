@@ -1,14 +1,13 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class Template extends TagNode
 {
-    protected string $extends;
-    protected Map<string, BlockNode> $blocks;
-    protected bool $doctype;
+    protected $extends;
+    protected $blocks;
+    protected $doctype;
 
-    public function __construct(TagAttributes $attributes, NodeList $children, Map<string, BlockNode> $blocks)
+    public function __construct(TagAttributes $attributes, NodeList $children, $blocks = [])
     {
         if ($attributes->offsetExists(':extends') && !$attributes->offsetGet(':extends') instanceof StringNode) {
             throw new SyntaxError("Extends attribute must be a StringNode");
@@ -34,12 +33,12 @@ class Template extends TagNode
         $this->blocks = $blocks;
     }
 
-    public function getBlocks() : Map<string, BlockNode>
+    public function getBlocks()
     {
         return $this->blocks;
     }
 
-    public function compile() : string
+    public function compile() //: string
     {
         $wrapper = 'x:frag';
         if ($this->doctype) {
@@ -59,7 +58,7 @@ return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
 RENDER;
     }
 
-    public function compileBlocks() : string
+    public function compileBlocks() //: string
     {
         $blocks = [];
         foreach ($this->getBlocks() as $block) {

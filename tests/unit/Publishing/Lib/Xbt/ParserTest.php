@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -39,7 +39,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $parser = new Parser($tokenStream);
 
-        $this->assertTrue($parser->getBlocks() instanceof Map<string, BlockNode>);
+        $this->assertTrue(is_array($parser->getBlocks()));
     }
 
     public function test_addBlock_adds_a_block()

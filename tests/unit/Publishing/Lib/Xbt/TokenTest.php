@@ -1,9 +1,9 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_throws_exception_when_instantiated_with_unrecognized_string()
+    public function test_recognizes_random_string_as_generic_xhp_token()
     {
         $token = new Token(Token::T_XHP_TOKEN, '%$%^');
 

@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -15,26 +15,26 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $node = Mockery::mock(Node::class)->makePartial();
         $node->shouldReceive('render')->andReturn('');
 
-        $children = Mockery::mock(NodeList::class, [Vector<Node> {$node}])->makePartial();
+        $children = Mockery::mock(NodeList::class, [[$node]])->makePartial();
         $children->shouldReceive('render')->andReturn('foobar');
 
         $blockName = Mockery::mock(StringNode::class, ['"for_the_win"'])->makePartial();
         $blockName->shouldReceive('render')->andReturn('"for_the_win"');
 
-        $blockAttributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => $blockName}])->makePartial();
+        $blockAttributes = Mockery::mock(TagAttributes::class, [[':name' => $blockName]])->makePartial();
         $blockAttributes->shouldReceive('render')->andReturn('name="for_the_win"');
 
         $p = new TagNode(':p', new TagAttributes, new NodeList);
 
-        $blockChildren = Mockery::mock(NodeList::class, [Vector<Node> {$p}])->makePartial();
+        $blockChildren = Mockery::mock(NodeList::class, [[$p]])->makePartial();
         $blockChildren->shouldReceive('render')->andReturn('<p />');
 
         $blockNode = Mockery::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
-        $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
+        $blocks = ['for_the_win' => $blockNode];
 
         $doctype = Mockery::mock(StringNode::class, ['"true"'])->makePartial();
 
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':doctype' => $doctype}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [[':doctype' => $doctype]])->makePartial();
 
         $template = new Template($attributes, $children, $blocks);
 
@@ -66,26 +66,26 @@ EXPECTED;
         $node = Mockery::mock(Node::class)->makePartial();
         $node->shouldReceive('render')->andReturn('');
 
-        $children = Mockery::mock(NodeList::class, [Vector<Node> {$node}])->makePartial();
+        $children = Mockery::mock(NodeList::class, [[$node]])->makePartial();
         $children->shouldReceive('render')->andReturn('foobar');
 
         $blockName = Mockery::mock(StringNode::class, ['"for_the_win"'])->makePartial();
         $blockName->shouldReceive('render')->andReturn('"for_the_win"');
 
-        $blockAttributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => $blockName}])->makePartial();
+        $blockAttributes = Mockery::mock(TagAttributes::class, [[':name' => $blockName]])->makePartial();
         $blockAttributes->shouldReceive('render')->andReturn('name="for_the_win"');
 
         $p = new TagNode(':p', new TagAttributes, new NodeList);
 
-        $blockChildren = Mockery::mock(NodeList::class, [Vector<Node> {$p}])->makePartial();
+        $blockChildren = Mockery::mock(NodeList::class, [[$p]])->makePartial();
         $blockChildren->shouldReceive('render')->andReturn('<p />');
 
         $blockNode = Mockery::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
-        $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
+        $blocks = ['for_the_win' => $blockNode];
 
         $doctype = Mockery::mock(DelimitedExpressionNode::class, ['{"true"}'])->makePartial();
 
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':doctype' => $doctype}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [[':doctype' => $doctype]])->makePartial();
 
         $template = new Template($attributes, $children, $blocks);
         $expected =<<<EXPECTED
@@ -112,24 +112,24 @@ EXPECTED;
         $node = Mockery::mock(Node::class)->makePartial();
         $node->shouldReceive('render')->andReturn('');
 
-        $children = Mockery::mock(NodeList::class, [Vector<Node> {$node}])->makePartial();
+        $children = Mockery::mock(NodeList::class, [[$node]])->makePartial();
         $children->shouldReceive('render')->andReturn('foobar');
 
         $blockName = Mockery::mock(StringNode::class, ['"for_the_win"'])->makePartial();
         $blockName->shouldReceive('render')->andReturn('"for_the_win"');
 
-        $blockAttributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => $blockName}])->makePartial();
+        $blockAttributes = Mockery::mock(TagAttributes::class, [[':name' => $blockName]])->makePartial();
         $blockAttributes->shouldReceive('render')->andReturn('name="for_the_win"');
 
         $p = new TagNode(':p', new TagAttributes, new NodeList);
 
-        $blockChildren = Mockery::mock(NodeList::class, [Vector<Node> {$p}])->makePartial();
+        $blockChildren = Mockery::mock(NodeList::class, [[$p]])->makePartial();
         $blockChildren->shouldReceive('render')->andReturn('<p />');
 
         $blockNode = Mockery::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
-        $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
+        $blocks = ['for_the_win' => $blockNode];
 
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [[]])->makePartial();
 
         $template = new Template($attributes, $children, $blocks);
 
@@ -155,24 +155,24 @@ EXPECTED;
         $node = Mockery::mock(Node::class)->makePartial();
         $node->shouldReceive('render')->andReturn('');
 
-        $children = Mockery::mock(NodeList::class, [Vector<Node> {$node}])->makePartial();
+        $children = Mockery::mock(NodeList::class, [[$node]])->makePartial();
         $children->shouldReceive('render')->andReturn('foobar');
 
         $blockName = Mockery::mock(StringNode::class, ['"for_the_win"'])->makePartial();
         $blockName->shouldReceive('render')->andReturn('"for_the_win"');
 
-        $blockAttributes = Mockery::mock(TagAttributes::class, [Map<string, ExpressionNode> {':name' => $blockName}])->makePartial();
+        $blockAttributes = Mockery::mock(TagAttributes::class, [[':name' => $blockName]])->makePartial();
         $blockAttributes->shouldReceive('render')->andReturn('name="for_the_win"');
 
         $p = new TagNode(':p', new TagAttributes, new NodeList);
 
-        $blockChildren = Mockery::mock(NodeList::class, [Vector<Node> {$p}])->makePartial();
+        $blockChildren = Mockery::mock(NodeList::class, [[$p]])->makePartial();
         $blockChildren->shouldReceive('render')->andReturn('<p />');
 
         $blockNode = Mockery::mock(BlockNode::class, [$blockAttributes, $blockChildren])->makePartial();
-        $blocks = Map<string, BlockNode> {'for_the_win' => $blockNode};
+        $blocks = ['for_the_win' => $blockNode];
 
-        $attributes = Mockery::mock(TagAttributes::class, [Map<string, StringNode> {':extends' => new StringNode('"layouts.mobile.root"')}])->makePartial();
+        $attributes = Mockery::mock(TagAttributes::class, [[':extends' => new StringNode('"layouts.mobile.root"')]])->makePartial();
 
         $template = new Template($attributes, $children, $blocks);
 
@@ -199,9 +199,9 @@ EXPECTED;
      */
     public function test_extends_attribute_must_be_a_string_node()
     {
-        $attributes = new TagAttributes(Map<string, ExpressionNode> {':extends' => new DelimitedExpressionNode('{1}')});
-        $children   = new NodeList(Vector<Node> {});
-        $blocks     = Map<string, BlockNode> {};
+        $attributes = new TagAttributes([':extends' => new DelimitedExpressionNode('{1}')]);
+        $children   = new NodeList([]);
+        $blocks     = [];
         $template   = new Template($attributes, $children, $blocks);
     }
 }

@@ -1,5 +1,4 @@
-<?hh
-
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use App;

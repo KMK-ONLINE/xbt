@@ -1,16 +1,16 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
-class TagAttributes<Tk, Tv> implements Node, \ArrayAccess<string, ExpressionNode>
+class TagAttributes implements Node, \ArrayAccess
 {
     protected $attributes;
 
-    public function __construct(Map<string, ExpressionNode> $attributes = Map {})
+    public function __construct($attributes = [])
     {
         $this->attributes = $attributes;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         $attributes = [];
         foreach ($this->getAttributes() as $key => $value) {
@@ -23,37 +23,37 @@ class TagAttributes<Tk, Tv> implements Node, \ArrayAccess<string, ExpressionNode
         return implode(' ', $attributes);
     }
 
-    public function getAttributes() : Map<string, ExpressionNode>
+    public function getAttributes()
     {
         return $this->attributes;
     }
 
-    public function offsetExists($name) : bool
+    public function offsetExists($name)
     {
         $attributes = $this->getAttributes();
 
-        return $attributes->containsKey($name);
+        return isset($attributes[$name]);
     }
 
-    public function offsetGet($name) : ?ExpressionNode
+    public function offsetGet($name)
     {
         $attributes = $this->getAttributes();
 
-        return $attributes->get($name);
+        return $this->offsetExists($name) ? $attributes[$name] : null;
     }
 
-    public function offsetSet($name, $value) : void
+    public function offsetSet($name, $value)
     {
         $attributes = $this->getAttributes();
 
-        $attributes->set($name, $value);
+        $attributes[$name] = $value;
     }
 
-    public function offsetUnset($name) : void
+    public function offsetUnset($name)
     {
         $attributes = $this->getAttributes();
 
-        $attributes->remove($name);
+        unset($attributes[$name]);
     }
 }
 

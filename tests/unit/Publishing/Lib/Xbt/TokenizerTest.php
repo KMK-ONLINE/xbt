@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -31,7 +31,7 @@ class TokenizerTest extends \PHPUnit_Framework_TestCase
         $tokenizer->shouldReceive('variableize')->with('$y')->once()->passthru();
 
         $stream = $tokenizer->tokenize();
-        $actual = implode('', array_map(($token) ==> $token->value, $stream->getTokens()));
+        $actual = implode('', array_map(function ($token) { return $token->value; }, $stream->getTokens()));
         $this->assertEquals($expected, $actual);
     }
 

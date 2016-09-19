@@ -1,12 +1,11 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class Tokenizer
 {
-    protected string $source;
+    protected $source;
 
-    public function __construct(string $source)
+    public function __construct(/*string */$source)
     {
         $this->source = $source;
     }
@@ -51,7 +50,7 @@ class Tokenizer
         return new TokenStream($tokens);
     }
 
-    public function variableize(string $var)
+    public function variableize(/*string */$var)
     {
         return '$__params[\'' . substr($var, 1) . '\']';
     }

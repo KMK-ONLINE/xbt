@@ -1,12 +1,13 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
+
 class TemplateRuntime
 {
     protected $parent;
     protected $render;
     protected $blocks;
 
-    public function __construct(?TemplateRuntime $parent, callable $render, $blocks = [])
+    public function __construct(TemplateRuntime $parent = null, callable $render = null, $blocks = [])
     {
         $this->parent = $parent;
 

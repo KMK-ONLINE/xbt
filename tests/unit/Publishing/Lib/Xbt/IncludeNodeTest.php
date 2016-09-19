@@ -1,5 +1,4 @@
-<?hh
-
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -18,7 +17,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     {
         $template = new StringNode('"foobar"');
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {':name' => $template});
+        $tagAttributes = new TagAttributes([':name' => $template]);
 
         $includeNode = new IncludeNode($tagAttributes);
     }
@@ -30,7 +29,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     {
         $template = new DelimitedExpressionNode('{"foobar"}');
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {':template' => $template});
+        $tagAttributes = new TagAttributes([':template' => $template]);
 
         $includeNode = new IncludeNode($tagAttributes);
     }
@@ -39,7 +38,7 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
     {
         $template = new StringNode('"foobar"');
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {':template' => $template});
+        $tagAttributes = new TagAttributes([':template' => $template]);
 
         $includeNode = new IncludeNode($tagAttributes);
 
@@ -55,10 +54,10 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $params = new DelimitedExpressionNode("{['foo' => 'bar']}");
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+        $tagAttributes = new TagAttributes([
             ':template' => $template,
             ':params'   => $params,
-        });
+        ]);
 
         $includeNode = new IncludeNode($tagAttributes);
 
@@ -76,10 +75,10 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $params = new StringNode('"quoted string tee hee"');
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+        $tagAttributes = new TagAttributes([
             ':template' => $template,
             ':params'   => $params,
-        });
+        ]);
 
         $includeNode = new IncludeNode($tagAttributes);
     }
@@ -90,10 +89,10 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $params = new DelimitedExpressionNode("{['foo' => 'bar',\n'baz' => 'zulu']}");
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+        $tagAttributes = new TagAttributes([
             ':template' => $template,
             ':params'   => $params,
-        });
+        ]);
 
         $includeNode = new IncludeNode($tagAttributes);
 
@@ -112,10 +111,10 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $when = new StringNode('"quoted string tee hee"');
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+        $tagAttributes = new TagAttributes([
             ':template' => $template,
             ':when'   => $when,
-        });
+        ]);
 
         $includeNode = new IncludeNode($tagAttributes);
     }
@@ -126,10 +125,10 @@ class IncludeNodeTest extends \PHPUnit_Framework_TestCase {
 
         $when = new DelimitedExpressionNode("{true}");
 
-        $tagAttributes = new TagAttributes(Map<string, ExpressionNode> {
+        $tagAttributes = new TagAttributes([
             ':template' => $template,
             ':when'   => $when,
-        });
+        ]);
 
         $includeNode = new IncludeNode($tagAttributes);
 

@@ -1,7 +1,5 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
-use HH\Vector;
 
 class IncludeNode extends TagNode {
 
@@ -35,10 +33,10 @@ class IncludeNode extends TagNode {
         }
 
 
-        parent::__construct('xbt:include', $attributes, new NodeList(Vector<Node> {}));
+        parent::__construct('xbt:include', $attributes, new NodeList([]));
     }
 
-    public function render() : string
+    public function render() //: string
     {
         $attributes = $this->getAttributes();
 

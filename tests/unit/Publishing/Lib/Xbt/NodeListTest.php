@@ -1,4 +1,4 @@
-<?hh
+<?php
 namespace App\Publishing\Lib\Xbt;
 
 use Mockery;
@@ -12,10 +12,10 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
 
     public function test_getNodes_should_return_an_vector_of_nodes_in_the_list()
     {
-        $nodes = Vector<Node> {
+        $nodes = [
             Mockery::mock(Node::class)->makePartial(),
             Mockery::mock(Node::class)->makePartial(),
-        };
+        ];
 
         $nodeList = new NodeList($nodes);
         $nodes = $nodeList->getNodes();
@@ -33,9 +33,9 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $node2 = Mockery::mock(Node::class)->makePartial();
         $node2->shouldReceive('render')->once();
 
-        $nodes = Vector<Node> {
+        $nodes = [
             $node1, $node2,
-        };
+        ];
 
         $nodeList = new NodeList($nodes);
 

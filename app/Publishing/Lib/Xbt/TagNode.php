@@ -1,21 +1,20 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class TagNode implements NestableNode
 {
-    protected string $name;
-    protected TagAttributes $attributes;
-    protected NodeList $children;
+    protected $name;
+    protected $attributes;
+    protected $children;
 
-    public function __construct(string $name, TagAttributes $attributes, NodeList $children)
+    public function __construct(/*string */$name, TagAttributes $attributes, NodeList $children)
     {
         $this->name = $name;
         $this->attributes = $attributes;
         $this->children = $children;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         $name = strpos($this->name, ':') === 0 ? substr($this->name, 1) : $this->name;
 
@@ -44,7 +43,7 @@ class TagNode implements NestableNode
         return $this->children;
     }
 
-    public function renderChildren() : string
+    public function renderChildren() //: string
     {
         return $this->getChildren()->render();
     }

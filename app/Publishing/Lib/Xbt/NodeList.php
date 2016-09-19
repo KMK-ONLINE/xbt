@@ -1,17 +1,16 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class NodeList implements Node
 {
     protected $nodes;
 
-    public function __construct(Vector<Node> $nodes = Vector{})
+    public function __construct($nodes = [])
     {
         $this->nodes = $nodes;
     }
 
-    public function render() : string
+    public function render() //: string
     {
         $out = '';
 
@@ -22,7 +21,7 @@ class NodeList implements Node
         return $out;
     }
 
-    public function getNodes() : Vector<Node>
+    public function getNodes()
     {
         return $this->nodes;
     }

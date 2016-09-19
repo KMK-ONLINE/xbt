@@ -1,19 +1,18 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class Parser
 {
-    protected TokenStream $stream;
-    protected Map<string, BlockNode> $blocks;
-    protected ?string $latestBlockName;
-    protected int $depth;
-    protected int $blockDepth;
+    protected $stream;
+    protected $blocks;
+    protected $latestBlockName;
+    protected $depth;
+    protected $blockDepth;
 
     public function __construct(TokenStream $stream)
     {
         $this->stream = $stream;
-        $this->blocks = Map {};
+        $this->blocks = [];
         $this->depth = 0;
         $this->blockDepth = 0;
     }
@@ -23,16 +22,16 @@ class Parser
         return $this->stream;
     }
 
-    public function getBlocks() : Map<string, BlockNode>
+    public function getBlocks()
     {
         return $this->blocks;
     }
 
-    public function addBlock(BlockNode $block): void
+    public function addBlock(BlockNode $block)
     {
         $name = $block->getNameAttribute();
 
-        if ($this->blocks->containsKey($name)) {
+        if (isset($this->blocks[$name])) {
             throw new SyntaxError("Duplicate block name \"$name\" detected");
         }
 
@@ -87,11 +86,11 @@ class Parser
 
     }
 
-    public function parseChildren(string $name) : NodeList
+    public function parseChildren(/*string */$name) : NodeList
     {
         $stream = $this->getStream();
 
-        $nodes = Vector<Node>{};
+        $nodes = [];
 
         $properlyClosed = false;
 
@@ -121,7 +120,7 @@ class Parser
         return new NodeList($nodes);
     }
 
-    public function matchClosingTag(string $name) : bool
+    public function matchClosingTag(/*string */$name) //: bool
     {
         $stream = $this->getStream();
 
@@ -264,7 +263,7 @@ class Parser
 
         $stream->expect(T_XHP_TAG_GT);
 
-        $children = new NodeList(Vector<Node> {});
+        $children = new NodeList([]);
 
         if ($hasChildren) {
             $this->depth += 1;
@@ -293,7 +292,7 @@ class Parser
 
         $stream->expect(T_XHP_TAG_GT);
 
-        $children = new NodeList(Vector<Node> {});
+        $children = new NodeList([]);
 
         if ($hasChildren) {
 
@@ -352,7 +351,7 @@ class Parser
 
         $stream->expect(T_XHP_TAG_GT);
 
-        $children = new NodeList(Vector<Node> {});
+        $children = new NodeList([]);
 
         if ($hasChildren) {
 
@@ -375,7 +374,7 @@ class Parser
 
     public function parseTagAttributes() : TagAttributes
     {
-        $attributes = Map<string, ExpressionNode> {};
+        $attributes = [];
 
         $stream = $this->getStream();
 

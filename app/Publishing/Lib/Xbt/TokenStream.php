@@ -1,19 +1,18 @@
-<?hh // strict
-
+<?php // strict
 namespace App\Publishing\Lib\Xbt;
 
 class TokenStream
 {
-    protected array $tokens;
+    protected $tokens;
 
-    protected Token $current;
+    protected $current;
 
-    protected int $position;
+    protected $position;
 
-    public int $row;
-    public string $text = "";
+    public $row;
+    public $text = "";
 
-    public function __construct(array<Token> $tokens)
+    public function __construct(array $tokens)
     {
         $this->tokens = $tokens;
         if (count($this->tokens) === 0 ||
@@ -27,7 +26,7 @@ class TokenStream
         $this->text .= $this->current->value;
     }
 
-    public function getTokens() : array
+    public function getTokens() //: array
     {
         return $this->tokens;
     }
@@ -37,12 +36,12 @@ class TokenStream
         return $this->current;
     }
 
-    public function getPosition() : int
+    public function getPosition() //: int
     {
         return $this->position;
     }
 
-    public function isEOF() : bool
+    public function isEOF() //: bool
     {
         return $this->getCurrent()->type === Token::T_XHP_EOF;
     }
@@ -72,7 +71,7 @@ class TokenStream
      * Return a position ahead of the current postiion
      * If it's out of range, return the the latest position
      */
-    public function peek($i = 1) : Token
+    public function peek(/*int */$i = 1) : Token
     {
         if (!is_int($i) || $i < 1) {
             throw new \InvalidArgumentException('supplied argument must be an integer larger than 0');
@@ -91,7 +90,7 @@ class TokenStream
     /**
      * Go forward until until the next element that is not of $type
      */
-    public function skip(int $type): void
+    public function skip(/*int */$type) //: void
     {
         while (!$this->match(Token::T_XHP_EOF)) {
             if (!$this->consume($type)) {
@@ -103,7 +102,7 @@ class TokenStream
     /**
      * Check if the current element match a certain type
      */
-    public function match(int $type, ?string $value = null): bool
+    public function match(/*int */$type, /*string */$value = null) //: bool
     {
         return $this->getCurrent()->match($type, $value);
     }
@@ -112,7 +111,7 @@ class TokenStream
      * Try to match the current element with a certain type:
      * Go forward and return next element if succeed, throws an exception otherwise
      */
-    public function expect(int $type, ?string $value = null) : ?Token
+    public function expect(/*int */$type, /*string */$value = null)
     {
         $current = $this->getCurrent();
 
@@ -126,7 +125,7 @@ class TokenStream
      * Try to match the current element with a certain type:
      * Go forward and return true if success, return false otherwise
      */
-    public function consume(int $type, ?string $value = null): bool
+    public function consume(/*int */$type, /*string */$value = null) //: bool
     {
         if ($this->match($type, $value)) {
             $this->next();
