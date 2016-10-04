@@ -38,12 +38,15 @@ class Tokenizer
                         $token[1] = $this->variableize($token[1]);
                     }
                     return new Token($token[0], $token[1], $token[2]);
+                } elseif (is_integer($token)) {
+                    return new Token(T_WHITESPACE, $token[1], $token[2]);
                 } else {
                     throw new \InvalidArgumentException('provided token is a ' . gettype($token) . ', string or array from token_get_all needed');
                 }
-
             },
-            token_get_all("<?hh\n" . $this->source)
+            extension_loaded('xhp') ?
+                xhp_token_get_all("<?hh\n" . $this->source) :
+                token_get_all("<?hh\n" . $this->source)
         );
         array_shift($tokens);
         $tokens[] = new Token(Token::T_XHP_EOF);
