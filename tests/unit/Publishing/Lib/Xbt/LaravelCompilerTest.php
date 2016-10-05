@@ -1,7 +1,6 @@
 <?php
 namespace App\Publishing\Lib\Xbt;
 
-use App;
 use Mockery as m;
 use Illuminate\Filesystem\Filesystem;
 
