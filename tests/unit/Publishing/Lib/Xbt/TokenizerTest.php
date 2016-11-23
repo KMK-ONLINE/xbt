@@ -5,6 +5,12 @@ use Mockery;
 
 class TokenizerTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (! defined('HHVM_VERSION') && ! extension_loaded('xhp')) {
+            $this->markTestSkipped();
+        }
+    }
 
     public function test_tokenize_returns_tokenstream()
     {
