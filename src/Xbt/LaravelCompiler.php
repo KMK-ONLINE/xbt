@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 use Illuminate\View\Compilers\CompilerInterface;
 use Illuminate\Filesystem\Filesystem;

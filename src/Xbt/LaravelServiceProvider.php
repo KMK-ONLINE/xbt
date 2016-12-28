@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Engines\CompilerEngine;

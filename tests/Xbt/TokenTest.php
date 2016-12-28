@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {

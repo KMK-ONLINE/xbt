@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 use Mockery as m;
 
@@ -11,7 +11,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_block_name_must_not_contain_dots()
     {
@@ -23,7 +23,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_block_name_must_not_contain_dashes()
     {
@@ -35,7 +35,7 @@ class BlockNodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_block_name_must_not_contain_anything_other_than_alphanumeric_and_underscores()
     {

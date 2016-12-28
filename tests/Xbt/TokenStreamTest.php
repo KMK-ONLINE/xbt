@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 use Mockery;
 
@@ -165,7 +165,7 @@ class TokenStreamTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_expect_throws_exception_on_unexpected_token()
     {

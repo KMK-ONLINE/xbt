@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 use Mockery;
 
@@ -41,7 +41,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $class = '__xbt_' . md5('foobar_with_doctype');
 
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
+return new \\Xbt\TemplateRuntime(
     null,
     function(\$__this, \$__params = []) {
         return <x:doctype>foobar</x:doctype>;
@@ -59,7 +59,7 @@ EXPECTED;
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_include_doctype_when_doctype_attribute_is_set_to_something_other_than_a_literal_true_or_false_string()
     {
@@ -89,7 +89,7 @@ EXPECTED;
 
         $template = new Template($attributes, $children, $blocks);
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
+return new \\Xbt\TemplateRuntime(
     null,
     function(\$__this, \$__params = []) {
         return <x:doctype>foobar</x:doctype>;
@@ -134,7 +134,7 @@ EXPECTED;
         $template = new Template($attributes, $children, $blocks);
 
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
+return new \\Xbt\TemplateRuntime(
     null,
     function(\$__this, \$__params = []) {
         return <x:frag>foobar</x:frag>;
@@ -177,7 +177,7 @@ EXPECTED;
         $template = new Template($attributes, $children, $blocks);
 
         $expected =<<<EXPECTED
-return new \App\Publishing\Lib\\Xbt\TemplateRuntime(
+return new \\Xbt\TemplateRuntime(
     app('xbt.compiler')->compileExtends('layouts.mobile.root'),
     function(\$__this, \$__params = []) {
         return <x:frag>foobar</x:frag>;
@@ -195,7 +195,7 @@ EXPECTED;
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_extends_attribute_must_be_a_string_node()
     {

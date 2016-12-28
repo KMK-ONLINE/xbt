@@ -1,5 +1,5 @@
 <?php // strict
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 class NodeList implements Node
 {

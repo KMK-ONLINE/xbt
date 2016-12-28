@@ -1,10 +1,10 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 class CommentNodeTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_commentNode_constructor_throws_SyntaxError_for_malformed_comment_strings()
     {

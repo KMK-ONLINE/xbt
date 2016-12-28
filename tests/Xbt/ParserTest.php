@@ -1,5 +1,5 @@
 <?php
-namespace App\Publishing\Lib\Xbt;
+namespace Xbt;
 
 use Mockery;
 
@@ -63,7 +63,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_addBlock_throws_an_exception_if_theres_a_block_with_a_same_name()
     {
@@ -119,7 +119,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseDelimitedExpression_throws_exception_when_not_properly_closed()
     {
@@ -160,7 +160,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseText_throws_exception_when_not_properly_bound()
     {
@@ -268,7 +268,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseTag_throws_an_exception_when_trying_to_parse_a_malformed_closing_tag()
     {
@@ -293,7 +293,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseTag_throws_an_exception_when_trying_to_parse_a_malformed_tag()
     {
@@ -314,7 +314,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseTag_throws_an_exception_when_trying_to_parse_an_unclosed_tag()
     {
@@ -410,7 +410,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseTagAttributes_throws_an_exception_when_the_attribute_value_is_missing()
     {
@@ -428,7 +428,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parseTagAttributes_throws_an_exception_when_the_attribute_value_is_malformed()
     {
@@ -463,7 +463,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parse_throws_exception_when_template_tag_is_nested()
     {
@@ -529,7 +529,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parse_parent_tag_is_outside_of_any_block_tag()
     {
@@ -559,7 +559,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException App\Publishing\Lib\Xbt\SyntaxError
+     * @expectedException Xbt\SyntaxError
      */
     public function test_parse_parent_tag_has_children()
     {

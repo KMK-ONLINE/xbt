@@ -1,5 +1,5 @@
 {
-  "name": "kmklabs/xbt",
+  "name": "KMK-ONLINE/xbt",
   "description": "XBT",
   "keywords": ["xhp", "xbt", "laravel"],
   "license": "MIT",
@@ -14,13 +14,8 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/",
-      "Publishing\\": "app/Publishing/"
+      "Xbt\\": "src/Xbt"
     }
-  },
-  "autoload-dev": {
-    "classmap": [
-    ]
   },
   "minimum-stability": "dev"
 }
