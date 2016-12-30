@@ -25,6 +25,8 @@ class LaravelServiceProvider extends ServiceProvider {
         });
 
         View::addExtension('xbt.php', 'xbt.engine');
+
+        $this->commands(ViewCompile::class);
     }
 
 }

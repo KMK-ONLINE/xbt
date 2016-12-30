@@ -1,15 +1,19 @@
 <?php
-namespace App\Console\Commands;
+namespace Xbt;
+
+use Illuminate\Console\Command;
 
 use Config;
 use View;
 
-class ViewCompile extends WoiCommand
+class ViewCompile extends Command
 {
     protected $signature = 'view:compile
-                           {--dry-run : Kering}';
+                           {--dry-run : Dry running}';
+    protected $description = 'Ahead compiling all view files.';
 
-    public function process() {
+    public function fire()
+    {
         $views = array_filter(array_merge(Config::get('view.sites'), Config::get('view.paths')), function($path) {
             return is_string($path);
         });
@@ -36,5 +40,4 @@ class ViewCompile extends WoiCommand
             }
         }
     }
-
 }
