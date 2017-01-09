@@ -29,7 +29,7 @@ class LaravelServiceProvider extends ServiceProvider {
         $this->commands(ViewCompile::class);
 
         $this->mergeConfigFrom(
-            __DIR__.'/view.php', 'view'
+            __DIR__.'/../config/view.php', 'view'
         );
     }
 
