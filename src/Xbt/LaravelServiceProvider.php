@@ -17,7 +17,7 @@ class LaravelServiceProvider extends ServiceProvider {
         $app->singleton('xbt.compiler', function($app) {
             $cachePath = $app['config']['view.compiled'];
             $classPath = $app['config']['view.xbt_cache'];
-            return new LaravelCompiler($app['files'], $cachePath, $classPath, Config::get('view')['paths']);
+            return new LaravelCompiler($app['files'], $cachePath, $classPath, $app['config']['view.paths']);
         });
 
         $resolver->register('xbt.engine', function() use($app) {
@@ -27,6 +27,10 @@ class LaravelServiceProvider extends ServiceProvider {
         View::addExtension('xbt.php', 'xbt.engine');
 
         $this->commands(ViewCompile::class);
+
+        $this->mergeConfigFrom(
+            __DIR__.'/view.php', 'view'
+        );
     }
 
 }
