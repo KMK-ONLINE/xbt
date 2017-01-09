@@ -6,15 +6,21 @@ This is a simple library to compile an XHP template expression into an ordinary
 Hack class. We do this because we need to have a template inheritance and
 inclusion in XHP.
 
-Features:
+## Features
+
 - Template block/inclusion
 - Accessing outer template from within
-- Template inheritance, like `<xbt:template extends="base.xbt.php">`
+- Template inheritance, like `<xbt:template extends="path.dot.base">` which will use `path/dot/base.xbt.php`
 - Accessing parent blocks with `<xbt:parent />`
 
-Example: suppose that we have this `xbt` template, named `template.xbt.php`:
+## Example
+
+Suppose that we have this `xbt` template, named `template.xbt.php`:
+
 ```
-<xbt:template>
+<xbt:template doctype="true">
+<html>
+  <body>
     <h1>This is a header</h1>
     <xbt:block name="main">
         <p>This is inside a block</p>
@@ -23,11 +29,24 @@ Example: suppose that we have this `xbt` template, named `template.xbt.php`:
         </xbt:block>
     </xbt:block>
     <p>This is a simple footer</p>
+  </body>
+</html>
+</xbt:template>
+```
+
+And have a view file named `welcome.xbt.php`:
+
+```
+<xbt:template base="template">
+  <xbt:block name="main">
+    <p>Welcome Home</p>
+  </xbt:block>
 </xbt:template>
 ```
 
 Load the file, and using this library, we can convert the template into an XHP
 class
+
 ```
 $contents    = file_get_contents("template.xbt.php");
 $tokenizer   = new Tokenizer($contents);
@@ -36,7 +55,8 @@ $parser      = new Parser($tokenStream);
 $result      = $parser->parse();
 ```
 
-`$result` should be like something like this
+`$result` should be like something like this:
+
 ```
 <?php
 
@@ -68,12 +88,11 @@ class __xbt_4bc492834a61e30d17d158c6a052837584b1db90 extends App\Publishing\Lib\
 }
 ```
 
+## Laravel Binding and Config
 
-## Laravel Binding
-
-Include the `XbtServiceProvider` to your project. Compiled xhp classes are in
-`$app['path.storage'].'/views'`, and compiled laravel views from that classes
-are in `$app['path.storage'].'/xbt'`.
+Include the `Xbt\LaravelServiceProvider` to your project. Compiled xhp classes are in
+`config('view.compiled')`, and compiled laravel views from that classes
+are in `config('view.xbt_cache')`.
 
 
 ## Process
