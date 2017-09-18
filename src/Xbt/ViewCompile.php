@@ -12,6 +12,11 @@ class ViewCompile extends Command
                            {--dry-run : Dry running}';
     protected $description = 'Ahead compiling all view files.';
 
+    public function handle()
+    {
+        $this->fire();
+    }
+
     public function fire()
     {
         $views = array_filter(array_merge(Config::get('view.sites'), Config::get('view.paths')), function($path) {
